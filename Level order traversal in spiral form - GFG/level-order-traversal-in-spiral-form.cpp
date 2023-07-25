@@ -157,12 +157,14 @@ vector<int> findSpiral(Node *root)
            
             if(direction)
             {
-                index =i;
+                index = i;
             }
             else
             {
                 index = size-i-1;
             }
+            
+            
             v[index] = (fNode->data);
             
             if(fNode->left)
