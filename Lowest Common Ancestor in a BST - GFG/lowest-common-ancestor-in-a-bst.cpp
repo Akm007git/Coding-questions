@@ -22,7 +22,7 @@ class Solution{
         Node* LCA(Node *root, int n1, int n2)
         {
             // code here
-            while(root)
+            while(root != NULL)
             {
                 if(root->data >n1 && root->data > n2 )
                 {
