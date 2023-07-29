@@ -15,7 +15,7 @@ class Solution {
             
             if(str[i] == '1')
             {
-                number +=  (str[i]-'0') * pow(2,power);
+                number +=  (str[i]-'0') * pow(2,power); // i can use 1 rather than  str[i]-'0'
             }
             power++;
             
