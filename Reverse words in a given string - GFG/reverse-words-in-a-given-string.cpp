@@ -17,19 +17,42 @@ class Solution
         {
             if(S[i] == '.')
             {
-                ans = temp + '.'+ ans;
-                temp="";
+                if(ans.empty())
+                {
+                    ans = temp+ans;
+                    temp="";
+                }
+                else
+                {
+                     ans = temp + '.'+ ans;
+                     temp="";
+                
+                }
+                
+                 
+              
             }
             else
             {
                 temp += S[i];
             }
         }
+        
+        
+        
         if(!temp.empty())
         {
-            ans = temp + '.' +ans;
+            if(ans.empty())
+        {
+            ans += temp;
         }
-        ans.pop_back();
+            else
+            {
+               ans = temp + '.' +ans; 
+            }
+            
+        }
+        
         return ans;
         
         
