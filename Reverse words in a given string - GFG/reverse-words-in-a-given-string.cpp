@@ -17,6 +17,7 @@ class Solution
         {
             if(S[i] == '.')
             {
+                //edge case for the last dot of this string
                 if(ans.empty())
                 {
                     ans = temp+ans;
@@ -28,8 +29,6 @@ class Solution
                      temp="";
                 
                 }
-                
-                 
               
             }
             else
@@ -42,13 +41,14 @@ class Solution
         
         if(!temp.empty())
         {
+            // edge case if string like "HIIIIIIIIIIIIIIII";
             if(ans.empty())
-        {
+            {
             ans += temp;
-        }
+            }
             else
             {
-               ans = temp + '.' +ans; 
+               ans = temp + '.' +ans;  // for  last  substring print
             }
             
         }
