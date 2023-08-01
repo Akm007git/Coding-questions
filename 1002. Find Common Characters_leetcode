@@ -1,0 +1,37 @@
+class Solution {
+public:
+    vector<string> commonChars(vector<string>& words) {
+        vector<string>ans;
+
+    
+    for(auto common  :words[0]) // comaparing the first words charaacter => with others words charecter
+    {
+        bool isPresent = true;
+        string s; // for storing the common charecter
+        for(int i=1;i<words.size();i++ )
+        {
+            int index = words[i].find(common);
+            if(index != string :: npos) // it means index found in words[0];
+            {
+                words[i].erase(index,1); // delete te index, as not got counted
+                
+            }
+            else
+            {
+                isPresent = false; // c not present any of string, so break;
+                break;
+            }
+            
+        }
+        if(isPresent)
+        {
+             s +=common ; // it means c present in all the string
+             ans.push_back(s);
+        }
+
+
+    }
+    return ans;
+    
+    }
+};
