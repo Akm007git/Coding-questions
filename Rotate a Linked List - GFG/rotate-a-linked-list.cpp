@@ -49,8 +49,8 @@ class Solution
             current = current->next;
         }
         current->next = head; // creating a cycle linklist;
-        head = cyclicHead->next;
-        cyclicHead->next  = NULL;
+        head = cyclicHead->next;// return the cyclic head next
+        cyclicHead->next  = NULL; // creating again singly linklist
         return head;
     }
 };
