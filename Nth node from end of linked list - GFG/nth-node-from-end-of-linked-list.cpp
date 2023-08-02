@@ -58,16 +58,15 @@ public:
           }
           
           Node* temp = previous;
+          // handle edge case for forst element n==1
+          
           if(n==1)
-          {
-              return previous->data;
-          }
+             return previous->data;
+    
           
           int count =1;
           while(count < n && temp->next != NULL)
           {
-              
-             
               temp = temp->next;
                count++;
               // each time checiking equal or not
@@ -77,7 +76,6 @@ public:
               }
           }
           return -1;
-          
     }
 };
 
