@@ -79,12 +79,16 @@ Node* deleteMid(Node* head)
         Node* temp = head;
         int count =0;
         
+        // calculating the length
+        
         while(temp != NULL)
         {
             count ++;
             temp=temp->next;
         }
         
+       // finding mid element delete and cinnect
+       
         temp = head;
         int c =1;
         while(c < count/2 && temp != NULL)
