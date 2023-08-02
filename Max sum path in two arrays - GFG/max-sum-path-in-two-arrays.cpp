@@ -31,9 +31,10 @@ class Solution{
             }
             else 
             {
-                result += max(sum1,sum2)+A[i];
+                result += max(sum1,sum2)+A[i]; // A[i] for the same element present in voth array
                 i++;
                 j++;
+                // when we are able to get equal portion,  denote thre sum1 and sum 2  to zero
                 sum1=0;
                 sum2 =0;
                 
@@ -43,7 +44,7 @@ class Solution{
         }
         
        
-        
+        // hand
         while(i < l1)
         {
             sum1 += A[i];
