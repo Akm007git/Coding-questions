@@ -40,20 +40,14 @@ class Solution
         if(head->next == NULL)
             return head;
             
-        // two pointer approach
-        Node* previous = NULL;
-        Node* current = head;
+        Node* previous = reverseList(head->next);
         
-        while( current != NULL)
-        {
-            Node* forward  = current->next;
-            current->next = previous;
-            
-            // updaion
-            previous = current;
-            current = forward;
-        }
+        Node* newHead = head->next;
+        newHead->next = head;
+        head->next = NULL;
+        
         return previous;
+        
     }
     
 };
