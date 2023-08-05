@@ -74,9 +74,9 @@ class Solution{
        
         
         Node* middle = getMid(head); // function calling
-        Node* temp= middle->next;;
+       
 
-        Node* reverseHead = getReverse(temp); // function calling
+        Node* reverseHead = getReverse(middle->next); // function calling
         //cout<<reverseHead->data <<endl;
         
         Node* head1 = head;
