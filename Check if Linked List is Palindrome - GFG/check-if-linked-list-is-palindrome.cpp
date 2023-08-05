@@ -70,8 +70,7 @@ class Solution{
        
        if(head->next == NULL)
             return 1;
-        
-       
+
         
         Node* middle = getMid(head); // function calling
        
