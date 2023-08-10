@@ -131,7 +131,6 @@ vector<int> Kdistance(struct Node *root, int k)
         
         for(int i=0;i<n;i++)
         {
-            
             Node* frontNode = q.front();
             q.pop();
             
