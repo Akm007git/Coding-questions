@@ -96,22 +96,19 @@ class Solution
         if(root == NULL)
             return ;
         
-        sum += root->data;
-        if(root->left == NULL && root->right == NULL && sum == s)
+        sum += root->data; // each time sum the nodes 
+        if(root->left == NULL && root->right == NULL && sum == s) // if all leaf node and sum == s then strore the ans
         {
              answer = sum;
+             return;
         }
            
-        
         solve(root->left,sum,s);
         solve(root->right,sum,s);
         
         sum -=  root->data;
         
     }
-    
-    
-    
     
     bool hasPathSum(Node *root, int S) {
     // Your code here
