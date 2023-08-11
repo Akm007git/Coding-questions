@@ -23,15 +23,26 @@ class Solution
 {
     public:
     
-    void solve(Node* root , vector<int>&v)
+    bool checkForBst(Node* root, int min, int max)
     {
-            if(root == NULL)
-                return;
-            
-            solve(root->left,v);
-            v.push_back(root->data);
-            solve(root->right,v);
+        if(root == NULL)
+            return true;
         
+        if(root->data > min && root->data < max)
+        {
+            bool left = checkForBst(root->left,min,root->data);
+            bool right = checkForBst(root->right,root->data,max);
+            
+            return left && right;
+        }
+        // else // suppose min theke choto hoye gecge or max thee boro
+        // {
+        //     return false;
+        // }
+        
+        return false;
+        
+       
     }
     
     
@@ -39,17 +50,10 @@ class Solution
     bool isBST(Node* root) 
     {
         // Your code here
-        vector<int>v;
-        solve(root,v);
-        int n = v.size();
-       
-       for(int i=0;i<n-1;i++)
-       {
-           if(v[i] >= v[i+1])
-            return false;
-            
-       }
-       return true;
+        int min = INT_MIN;
+        int max = INT_MAX;
+        
+        return checkForBst(root,min,max);
     }
 };
 
