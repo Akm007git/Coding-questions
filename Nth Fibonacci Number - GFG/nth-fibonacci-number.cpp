@@ -5,38 +5,21 @@ using namespace std;
 
 // } Driver Code Ends
 // User function Template for C++
-
-
-// USING  DP MEMORIZATION top down approach 
-
 class Solution {
-    
-    int mod = 1e9+7;
-    
-    int fibbo(int n , vector<int>&dp)
-    {
-        
-        
-         
-        // base case 
-        if(n < 2)
-            return n;
-            
-        // checking in dp availbale or not
-        if(dp[n] != -1)
-            return dp[n];
-        
-        // receursive call
-        dp[n] = (fibbo((n-1),dp)%mod  + fibbo((n-2),dp)%mod )%mod;
-        return dp[n];
-        
-    }
-    
   public:
     int nthFibonacci(int n){
         // code here
-        vector<int>dp(n+1 ,-1);
-        return  fibbo(n,dp);
+        int mod = 1e9+7;
+        vector<int>dp(n+1,-1);
+        dp[0]=0;
+        dp[1] =1;
+        
+        for(int i=2;i<=n;i++)
+        {
+            dp[i] = (dp[i-1]%mod + dp[i-2]%mod )%mod;
+        }
+        
+        return dp[n];
     }
 };
 
