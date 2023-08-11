@@ -126,42 +126,36 @@ struct Node
     }
 };
  */
+ void solve(Node* root , vector<int>&v,int level)
+ {
+     if(root == NULL)
+        return;
+        
+        if(level == v.size())
+        {
+            v.push_back(root->data);
+        }
+        
+        
+         solve(root->left,v,level+1);
+         solve(root->right,v,level+1);
+  
+        
+ }
+ 
+ 
 
 //Function to return a list containing elements of left view of the binary tree.
 vector<int> leftView(Node *root)
 {
    // Your code here
-   
-   vector<int>ans;
-   queue<Node*>q;
-   q.push(root);
-   
+   vector<int>v;
    if(root == NULL)
     return {};
-   while(!q.empty())
-   {
-       int n = q.size();
-
-       for(int i =0;i<n;i++)
-       {
-           Node*  frontNode = q.front();
-           q.pop();
-           if(i==0) // we are going to store only one value
-           {
-                ans.push_back(frontNode->data); // only one value store
-           }
-                     if(frontNode->left)
-           {
-               q.push(frontNode->left);
-           }
-           if(frontNode->right)
-           {
-               q.push(frontNode->right);
-           }
-           
-       }
-       
-   }
-   return ans;
+    int level =0;
+    
+     solve(root,v,level);
+     return v;
+    
    
 }
