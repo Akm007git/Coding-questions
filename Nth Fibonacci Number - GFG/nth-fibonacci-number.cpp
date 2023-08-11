@@ -7,6 +7,11 @@ using namespace std;
 // User function Template for C++
 class Solution {
   public:
+  
+  // buttom up approach
+  
+  
+  
     int nthFibonacci(int n){
         // code here
         int mod = 1e9+7;
