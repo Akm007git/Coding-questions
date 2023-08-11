@@ -5,42 +5,41 @@ using namespace std;
 // } Driver Code Ends
 class Solution{
     public:
-    int search(int arr[], int low, int high, int k){
+    int search(int A[], int low, int high, int key){
         // l: The starting index
         // h: The ending index, you have to search the key in this range
         
         //complete the function here
-        while(low<=high)
+       
+        while(low <= high)
         {
-            int mid = (low+high)/2;
             
-            if(arr[mid] == k)
+             int mid = (low+high)/2;
+             
+            if(A[mid] == key)
+            {
                 return mid;
-                
-                
-            if(arr[low] <= arr[mid])
-            {
-                if(arr[low] <= k && k <= arr[mid])
-                {
-                    high = mid - 1;
-                }
-                else low = mid + 1;
-            }
-            else
-            {
-                if(arr[mid] <= k && k <= arr[high] )
-                {
-                    low = mid + 1;
-                }
-                else
-                {
-                    high = mid - 1;
-                }
             }
             
-        }
-        
-        return -1;
+            if(A[low] <=  A[mid]) // sorted
+            {
+                if( key >= A[low] && key < A[mid])
+                    high = mid-1;
+                else
+                low = mid+1;
+             }
+             else
+             {
+                 if(key >= A[mid] && key < A[high])
+                 {
+                     low = mid+1;
+                 }
+                 else
+                    high = mid-1;
+             }
+         }
+         return -1;
+            
     }
 };
 
