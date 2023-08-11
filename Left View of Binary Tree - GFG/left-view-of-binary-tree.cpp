@@ -138,8 +138,6 @@ vector<int> leftView(Node *root)
    
    if(root == NULL)
     return {};
-   
-   
    while(!q.empty())
    {
        int n = q.size();
