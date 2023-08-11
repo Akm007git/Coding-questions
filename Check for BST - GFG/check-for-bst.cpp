@@ -35,10 +35,9 @@ class Solution
             
             return left && right;
         }
-        // else // suppose min theke choto hoye gecge or max thee boro
-        // {
-        //     return false;
-        // }
+        
+        
+        // suppose min theke choto hoye gecge or max thee boro
         
         return false;
         
