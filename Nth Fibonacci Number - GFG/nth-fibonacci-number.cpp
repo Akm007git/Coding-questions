@@ -15,16 +15,18 @@ class Solution {
     int nthFibonacci(int n){
         // code here
         int mod = 1e9+7;
-        vector<int>dp(n+1,-1);
-        dp[0]=0;
-        dp[1] =1;
+       int prev1 =1;
+       int prev2 = 0;
+       
         
         for(int i=2;i<=n;i++)
         {
-            dp[i] = (dp[i-1]%mod + dp[i-2]%mod )%mod;
+            int current = (prev1%mod + prev2%mod)%mod;
+            prev2 = prev1;
+            prev1 = current;
         }
         
-        return dp[n];
+        return prev1;
     }
 };
 
