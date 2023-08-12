@@ -104,32 +104,48 @@ struct Node
 class Solution{
     public:
     
-        int heights(Node* root)
+    pair<int,bool> solve(Node* root)
+    {
+        if(root == NULL)
         {
-            if(root==NULL) return 0;
-            
-            int left = heights(root->left);
-            int right = heights(root->right);
-            
-            int ans = max(left,right)+1;
-                return ans;
+            pair<int,bool>p = make_pair(0,true);
+            return p;
         }
+            
+        pair<int,bool>left = solve(root->left);
+        pair<int,bool>right = solve(root->right);
+        
+        int leftAns = left.first;
+        int rightAns = right.first;
+        
+        int diff =abs(leftAns - rightAns);
+        
+        pair<int,bool>ans; // returning the ans,while returnmng fromthe lower sub tree
+        
+        
+        if(left.second && right.second && diff<=1) // main logic
+        {
+            ans.first = max(leftAns,rightAns)+1; // saving the height
+            ans.second = true;
+        }
+        else
+        {
+            ans.second = false;
+        }
+        return ans;
+        
+        
+    }
+    
+    
+    
+    
     
     //Function to check whether a binary tree is balanced or not.
     bool isBalanced(Node *root)
     {
         //  Your Code here
-        if(root == NULL)
-            return true;
-        
-        bool left = isBalanced(root->left);
-        bool right = isBalanced(root->right);
-        bool ans = abs( heights(root->left) - heights(root->right) ) <= 1;
-        
-        if(left && right && ans)
-            return true;
-        else
-            return false;
+       return  solve(root).second; // due to pair cas
     }
 };
 
