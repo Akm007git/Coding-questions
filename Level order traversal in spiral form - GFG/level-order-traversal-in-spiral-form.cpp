@@ -130,66 +130,42 @@ struct Node
 vector<int> findSpiral(Node *root)
 {
     //Your code here
-    vector<int>ans;
-    if(root == NULL)
-    {
-        ans.push_back(-1);
-        return ans;
-    }
     
+    if( root == NULL)
+        return {-1};
+        
+    vector<int>ans;
     queue<Node*>q;
     q.push(root);
-    
-    bool direction = false;
+    bool flag = false;
     
     while( !q.empty())
     {
-        int size = q.size();
         
-        vector<int>v(size);
-         int index;
+        int n = q.size();
+        vector<int>v(n);
         
-        for(int i=0;i<size;i++)
+    
+        for(int i=0;i<n;i++)
         {
-            Node* fNode = q.front();
+            Node* frontNode = q.front();
             q.pop();
+            int index = flag ? i : n-i-1;
+            v[index] = frontNode->data;
             
+            if(frontNode->left)
+                q.push(frontNode->left);
+            if(frontNode->right)
+                q.push(frontNode->right);
            
-            if(direction)
-            {
-                index = i;
-            }
-            else
-            {
-                index = size-i-1;
-            }
-            
-            
-            v[index] = (fNode->data);
-            
-            if(fNode->left)
-            {
-                q.push(fNode->left);
-            }
-            
-            if(fNode->right)
-            {
-                q.push(fNode->right);
-            }
         }
-        direction = !direction;
-      
-      
-      for(auto i: v)
-    {
-        ans.push_back(i);
+        
+        flag = !flag;
+        
+        for(auto i : v)
+            ans.push_back(i);
     }
-    
-    }
-    
     return ans;
     
-    
-    
-    
+  
 }
