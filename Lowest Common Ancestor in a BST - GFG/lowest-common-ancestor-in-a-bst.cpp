@@ -24,20 +24,15 @@ class Solution{
             // code here
             while(root != NULL)
             {
-                if(root->data >n1 && root->data > n2 )
-                {
-                    root = root->left;
-                }
-                 else if(root->data <n1 && root->data <n2)
-                {
+                if(root->data < n1 && root->data < n2)
                     root = root->right;
-                }
+                else if(root->data > n1 && root->data  >n2)
+                    root = root->left;
                 else
-                {
-                    return root;
-                }
+                    break;
             }
             return root;
+            
         }
 
 };
