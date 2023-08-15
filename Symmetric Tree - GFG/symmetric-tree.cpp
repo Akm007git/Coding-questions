@@ -104,6 +104,8 @@ class Solution{
     
     bool isMirror(Node* root1 , Node* root2)
     {
+        // three edge conditions 
+        
         if(!root1 && !root2)
             return true;
             
@@ -112,17 +114,18 @@ class Solution{
         if(!root1 && root2)
             return false;
             
-            
+            // if  both data doesnt mathch , return false;
         if(root1->data != root2->data)
         {
             return false;
         }
-            
+          
+          // traverse both side at a time
+          
         return isMirror(root1->left,root2->right) && isMirror(root1->right, root2->left);
             
     }
-    
-    
+
     // return true/false denoting whether the tree is Symmetric or not
     bool isSymmetric(struct Node* root)
     {
