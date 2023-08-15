@@ -118,11 +118,13 @@ void print(Node* root, vector<int>&ans)
     if(root == NULL)
         return;
         
-    if(root->left && !root->right)
+        // this is the main condition to be follow
+        
+    if(root->left && !root->right) // if right is NULL
     {
         ans.push_back(root->left->data);
     }
-    if(root->right && !root->left)
+    if(root->right && !root->left) // if left is NULL
     {
         ans.push_back(root->right->data);
     }
@@ -138,7 +140,7 @@ vector<int> noSibling(Node* node)
     vector<int>ans;
     print(node,ans);
     sort(ans.begin(),ans.end());
-    if(ans.empty())
+    if(ans.empty()) // if all nodes have sibllings
         ans.push_back(-1);
     return ans;
     
