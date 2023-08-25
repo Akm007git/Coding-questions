@@ -18,6 +18,7 @@ void solve(vector<int>nums, vector<vector<int>>&ans,int index )
 	        // backtracking
 	       swap(nums[index],nums[j]);
         }
+				index++;
 }
 	public:
     vector<vector<int>> permute(vector<int>& nums) {
