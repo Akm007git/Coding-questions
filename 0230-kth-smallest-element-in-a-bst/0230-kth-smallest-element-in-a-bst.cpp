@@ -20,7 +20,7 @@ public:
         }
 
         printingKthSmall(root->left,count,ans,k);
-        count += 1;;
+        count += 1;; // while left == null increment ccount;
         if(count == k)
         {
             ans = root->val;
