@@ -24,18 +24,17 @@ public:
         if(count == k)
         {
             ans = root->val;
+            return;
         }
         printingKthSmall(root->right,count,ans,k);
-        return;
-
-
+      
 
     } 
     int kthSmallest(TreeNode* root, int k) {
         int count = 0;
         int ans = -1;
 
-         printingKthSmall(root,count,ans,k);
+        printingKthSmall(root,count,ans,k);
         return ans;
     }
 };
