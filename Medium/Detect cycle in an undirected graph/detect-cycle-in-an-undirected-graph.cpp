@@ -5,6 +5,9 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
     
+    
+    /* USING BFSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS*/
+    
     private:
     
     bool bfs(int start, vector<int>adj[], vector<bool>&visited)
@@ -13,7 +16,7 @@ class Solution {
         
         queue<pair<int,int> >q; // node, and its parent
         
-        q.push(make_pair(start,-1));
+        q.push(make_pair(start,-1)); // initially parent is -1;
         
         while( !q.empty())
         {
@@ -30,11 +33,18 @@ class Solution {
                     visited[adjNodes] = true;
                     
                 }
-                else // jodi adjacent visit thake, check korte hobe ota patent ki nna? if parent then ok  nato cycle
+                
+                else if(adjNodes != parent) // jodi adjacent visit thake, check korte hobe ota patent ki nna? if parent then ok  nato cycle
+                {
+                    return true;
+                }
+                
+                
+                /*  else // jodi adjacent visit thake, check korte hobe ota patent ki nna? if parent then ok  nato cycle
                 {
                     if(adjNodes != parent) 
                         return true;
-                }
+                } */
             }
         }
         
@@ -52,6 +62,7 @@ class Solution {
         vector<bool>visited(V,false);
 
         
+        // for different componenets
         
         for(int i=0;i<V;i++)
         {
