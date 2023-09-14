@@ -5,51 +5,28 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
     
-    
-    /* USING BFSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS*/
-    
     private:
     
-    bool bfs(int start, vector<int>adj[], vector<bool>&visited)
+    bool detectCycleBYDFS(int node, int parent, vector<int>adj[], vector<int>&visited)
     {
-        visited[start] = true;
+        visited[node] = 1;
         
-        queue<pair<int,int> >q; // node, and its parent
-        
-        q.push(make_pair(start,-1)); // initially parent is -1;
-        
-        while( !q.empty())
+        for(auto adjNodes : adj[node]) // heree node is parent, and adjnodes is child
         {
-            int node = q.front().first;
-            int parent = q.front().second;
-            q.pop();
-            
-            // processing the adjacent nodes
-            for(auto adjNodes : adj[node])
+            if(!visited[adjNodes])
             {
-                if(visited[adjNodes] == false)
-                {
-                    q.push({adjNodes,node}); // here node is the parent of adjacent nodes
-                    visited[adjNodes] = true;
-                    
-                }
-                
-                else if(adjNodes != parent) // jodi adjacent visit thake, check korte hobe ota patent ki nna? if parent then ok  nato cycle
+                if(detectCycleBYDFS(adjNodes,node,adj,visited) == true) // if some wgere in the rocess of recursion we got already visited or true
                 {
                     return true;
                 }
-                
-                
-                /*  else // jodi adjacent visit thake, check korte hobe ota patent ki nna? if parent then ok  nato cycle
-                {
-                    if(adjNodes != parent) 
-                        return true;
-                } */
+            }
+            else // it means adjacent node alredy visited
+            {
+                if(adjNodes != parent) // if adjacent  is not the parent node
+                    return true;
             }
         }
-        
         return false;
-        
     }
     
     
@@ -58,20 +35,17 @@ class Solution {
     // Function to detect cycle in an undirected graph.
     bool isCycle(int V, vector<int> adj[]) {
         // Code here
+        vector<int>visited(V,0);
+        int start = 0;
+        int parent = -1;
         
-        vector<bool>visited(V,false);
-
-        
-        // for different componenets
-        
-        for(int i=0;i<V;i++)
+        // for all components
+        for(int i = 0;i<V;i++)
         {
             if(!visited[i])
             {
-                if(bfs(i,adj,visited))
-                {
+                if(detectCycleBYDFS(i, parent,adj,visited))
                     return true;
-                }
             }
         }
         return false;
