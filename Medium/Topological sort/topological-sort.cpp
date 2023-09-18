@@ -5,52 +5,55 @@ using namespace std;
 // } Driver Code Ends
 class Solution
 {
-   private:
-   void topologicalSort(int start, vector<int>adj[],stack<int>&st,vector<bool>&visited)
-   {
-       visited[start] = true;
-       
-       //processing
-       
-       for(auto it:adj[start])
-       {
-           if(!visited[it])
-           {
-               topologicalSort(it,adj,st,visited); // recursive call for next depth, push at the ened
-           }
-       }
-       
-       // at the end push the node
-       
-       st.push(start);
-   }
-    
-    
 	public:
 	//Function to return list containing vertices in Topological order. 
 	vector<int> topoSort(int V, vector<int> adj[]) 
 	{
 	    // code here
-	    vector<int>ans;
-	    vector<bool>visited(V,false);
-	    stack<int>st;
+	    vector<int>indegree(V,0);
+	    
+	    // indegree ready
 	    
 	    for(int i=0;i<V;i++)
 	    {
-	        if(!visited[i])
+	        for(auto it: adj[i])
 	        {
-	            topologicalSort(i,adj,st,visited);
+	            indegree[it]++;
 	        }
 	    }
+	  queue<int>q;
 	    
-	    // steck to  vector
+	    // push the node which has indegree  0 
+	  for(int i = 0;i<V;i++)
+	  {
+	     if(indegree[i] == 0)
+	     {
+	         q.push(i);
+	     }
+	  }
+	  
+	  vector<int>ans;
+	  
+	  while( !q.empty())
+	  {
+	      int top = q.front();
+	      q.pop();
+	      ans.push_back(top);
+	      
+	      for(auto it: adj[top])
+	      {
+	          indegree[it]--; // jegetu top element pop hoye gele,ota jake jake direcet krto r korbe na, tai each "it" er indegree kome jabe
+	          
+	          if(indegree[it] == 0)
+	            q.push(it);
+	      }
+	      
+	  }
+	  
+	  return ans;
+	  
+	  
 	    
-	    while(!st.empty())
-	    {
-	        ans.push_back(st.top());
-	        st.pop();
-	    }
-	    return ans;
 	    
 	}
 };
