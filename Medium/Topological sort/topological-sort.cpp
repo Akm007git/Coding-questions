@@ -12,7 +12,7 @@ class Solution
 	    // code here
 	    vector<int>indegree(V,0);
 	    
-	    // indegree ready
+	    // indegree ready with all counter
 	    
 	    for(int i=0;i<V;i++)
 	    {
