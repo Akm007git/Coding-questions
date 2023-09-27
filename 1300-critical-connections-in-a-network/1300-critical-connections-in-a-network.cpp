@@ -26,7 +26,7 @@ vector<int>&ins,vector<int>&low, vector<bool>&visited,vector<int>adj[],vector<ve
 
             low[node] = min(low[it],low[node]);
             // bridge check
-            if(low[it] > ins[node])
+            if(ins[node] < low[it])
             {
                 bridges.push_back({node,it}); 
             }
