@@ -10,24 +10,51 @@
  * };
  */
 class Solution {
-public:
 
-void solve(TreeNode* root, vector<int>&v)
+private:
+void preorderItterative(TreeNode* root , vector<int>&pre)
 {
-    if(root == NULL)
-        return;
 
-        v.push_back(root->val);
-        solve(root->left,v);
-        solve(root->right,v);
+    if(root == NULL)
+    {
+        return;
+    }
+
+    stack<TreeNode*>st;
+    st.push(root);
+
+
+    while(!st.empty())
+    {
+        
+        TreeNode* front = st.top();
+        st.pop();
+        //. print the first node
+        pre.push_back(front->val);
+
+        if(front->right)
+        {
+            st.push(front->right);
+        }
+
+        if(front->left)
+        {
+            st.push(front->left);
+        }
+    }
+
+
+
+
 }
 
 
-
+public:
     vector<int> preorderTraversal(TreeNode* root) {
-    vector<int>ans;
-    solve(root,ans);
-    return ans;
+        
+    vector<int>pre;
 
+    preorderItterative(root,pre);
+    return pre;
     }
 };
