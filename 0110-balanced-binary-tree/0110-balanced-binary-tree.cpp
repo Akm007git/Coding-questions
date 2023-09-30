@@ -10,34 +10,45 @@
  * };
  */
 class Solution {
-
-// extracting the heights of each part one by one
-private:
-int heights(TreeNode* root)
+    private:
+    pair<bool,int> checkBalance(TreeNode* root)
 {
-    if(!root) return 0;
+    if(!root)
+    {
+        pair<bool,int>p = make_pair(true,0);
+         // initially bool, height
+        return p;
+    }
 
-    int left = heights(root->left);
-    int right = heights(root->right);
+    pair<bool,int>left = checkBalance(root->left);
+    pair<bool,int>right = checkBalance(root->right);
 
-    return max(left,right)+1;
+    int  lh = left.second;
+    int  rh = right.second;
+
+    int diff = abs(lh-rh);
+
+    pair<bool,int>ans; // for returning the next step
+    
+
+    if(left.first && right.first && diff <=1) // if all three condition are true;
+    {
+        ans.first = true;
+        ans.second = max(lh,rh)+1; // return as a height of tree
+        
+    }
+    else{
+        ans.first= false;
+       
+    }
+
+    return ans;
 }
 
 public:
+
+
     bool isBalanced(TreeNode* root) {
-        if(root == NULL)
-            return true;
-        
-        bool left = isBalanced(root->left);
-        bool right = isBalanced(root->right);
-
-        // main condition
-
-        int diff = abs(heights(root->left) - heights(root->right));
-
-        if(left && right && diff <=1) // if all the 3 cond. will be true
-            return true;
-        else
-            return false;
+        return checkBalance(root).first;
     }
 };
