@@ -103,43 +103,53 @@ class Solution
     //Function to find the vertical order traversal of Binary Tree.
     vector<int> verticalOrder(Node *root)
     {
-        //Your code here
         
-        //step1 ceate a map with corresponding horizontal amd vector
-        map<int,vector<int> >mp;
-        queue<pair<Node*,int> >q; // node and horizontal distence
-        q.push(make_pair(root,0)); // initialliy distence will be zeo, 
+        // creating a map for mapping all the nodes corresponding their horizontal dist
+        map<int,vector<int> > mp;
+        
+        //creating a queue for traversing the tree level wise
+        queue<pair<Node*,int>>q;
+        
+        q.push(make_pair(root,0)); // initially  pass root,and the level is 0
+        
         while(!q.empty())
         {
-            pair<Node*,int>p = q.front();
+            pair<Node*,int>p = q.front(); // accesing the first elemnt
             q.pop();
+            
+            int level = p.second;
             Node* frontNode = p.first;
-            int hd = p.second;
             
-            mp[hd].push_back(frontNode->data);
-            if(frontNode->left)
-            {
-                q.push(make_pair(frontNode->left,hd-1)); // hd decresses
-            }
-            if(frontNode->right)
-            {
-                q.push(make_pair(frontNode->right,hd+1)); // hd inceases
-            }
             
+            
+            
+            // save node corosponding the level
+            mp[level].push_back(frontNode->data);
+            
+            // traverse
+            
+             if(frontNode->left)
+             {
+                 q.push(make_pair(frontNode->left,level-1));
+             }
+             if(frontNode->right)
+             {
+                 q.push(make_pair(frontNode->right,level+1));
+             }
         }
-        // mapping is done, then we have to retrieve from map
+        
+        // i have got all the mapping  level---------->vector
+        // need to separere them
         
         vector<int>ans;
-        
         for(auto it:mp)
         {
-            for(auto i:it.second )
+            for(auto i : it.second)
+            {
                 ans.push_back(i);
+            }
         }
         return ans;
-        
-        
-        
     }
 };
 
