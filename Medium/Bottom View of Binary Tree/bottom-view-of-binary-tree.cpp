@@ -97,36 +97,49 @@ class Solution {
   public:
     vector <int> bottomView(Node *root) {
         // Your Code Here
-        vector<int>ans;
-        map<int,int>mp;
-        queue<pair<Node*,int> >q; // int will be the horizontal distence
         
-        q.push(make_pair(root,0));
-        while(!q.empty())
+        
+        map<int,int>mp;
+        vector<int>ans;
+        
+        if( !root)
         {
-            pair<Node*,int> p = q.front();
-            q.pop();
+            return ans;
+        }
+        queue<pair<Node*,int>>q;
+        q.push({root,0}); // initially root, and distence
+        
+        while( !q.empty())
+        {
+            pair<Node*,int>p = q.front();
             Node* frontNode = p.first;
-            int hd = p.second;
+            int horzDist = p.second;
+            q.pop();
             
-            mp[hd] =frontNode->data; // we dont have to do 1:1 mapping, so at the end last value of each key will be availbale in the map
+            // normally mapping, thats why, there will be only last updated value after a certain point
+            mp[horzDist] = frontNode->data;
+            
+            // traversal left and right
             
             if(frontNode->left)
             {
-                q.push(make_pair(frontNode->left,hd-1));
+                q.push({frontNode->left,horzDist-1});
                 
             }
             if(frontNode->right)
             {
-                q.push(make_pair(frontNode->right,hd+1));
+                q.push({frontNode->right,horzDist+1});
+                
             }
-            
         }
+        
+        // collecting all the data in vector
         for(auto it:mp)
         {
             ans.push_back(it.second);
         }
         return ans;
+        
     }
 };
 
