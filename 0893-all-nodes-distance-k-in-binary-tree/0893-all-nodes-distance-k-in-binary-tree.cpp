@@ -16,9 +16,7 @@ class Solution {
 
         while( !q.empty())
         {
-            int size = q.size();
-            for(int i=0;i<size;i++)
-            {
+            
                 TreeNode* frontNode = q.front();
                 q.pop();
 
@@ -33,7 +31,7 @@ class Solution {
                     q.push(frontNode->right);
                     mp[frontNode->right] = frontNode;
                 }
-            }
+            
         }
     }
 
