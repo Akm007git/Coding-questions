@@ -95,117 +95,98 @@ struct Node {
 };
 */
 class Solution {
+    
+private:
+    
+Node* createMapping(unordered_map<Node*,Node*>&mp, Node* root, int start)
+{
+    Node* target = NULL;
+    queue<Node*>q;
+    q.push(root);
+    while(!q.empty())
+    {
+        Node* frontNode = q.front();
+        q.pop();
+
+        if(frontNode->data  == start )
+        {
+            target = frontNode;
+        }
+        // left and right traversal
+        if(frontNode->left)
+        {
+            q.push(frontNode->left);
+            mp[frontNode->left] = frontNode;
+        }
+        if(frontNode->right)
+        {
+            q.push(frontNode->right);
+            mp[frontNode->right] = frontNode;
+        }
+
+    }
+    return target;
+}
+
   public:
-  
-  Node* parentMapping(Node* root,int target, map<Node*,Node*>&parentToNode )
-  {
-      queue<Node*>q;
-      q.push(root);
-      Node* result = NULL; // for saving the  target node
-      
-      while(!q.empty())
-      {
-          Node* frontNode = q.front();
-          q.pop();
-          
-          if(frontNode ->data == target)
-          {
-              result = frontNode;
-          }
-          
-          if(frontNode->left)
-          {
-              parentToNode[frontNode->left] = frontNode; // mapping with  aprent
-              q.push(frontNode->left);
-          }
-          if(frontNode->right)
-          {
-              parentToNode[frontNode->right] = frontNode; // mapping with parent
-              q.push(frontNode->right);
-          }
-          
-      }
-      
-      return  result;
-  }
-  
-  
-  
-  int burningTree(Node* targetNode,map<Node*,Node*>&parentToNode ,int ans)
-  {
-     map<Node*,bool>visited;
-     queue<Node*>q;
-     
-     // initially  push the front Node ans also it is visited
-     q.push(targetNode);
-     visited[targetNode] = true;
-     
-     while(!q.empty())
-     {
-         bool flag = false; // checker that in queue inserterd or not
-         
-         int n = q.size();
-         for(int i=0;i<n;i++)
-         {
-             Node* frontNode = q.front();
-             q.pop();
-             
-             
-            // procwssing the extra node
-            // we have to check left,right abd parent node for processing
-            
-            if(frontNode->left && !visited[frontNode->left])
-            {
-                q.push(frontNode->left);
-                visited[frontNode->left] = true; // arking left when process
-                flag = true;
-            }
-            
-            // for right pointer cgecking
-            
-            if(frontNode->right && !visited[frontNode->right])
-            {
-                
-                 q.push(frontNode->right);
-                 visited[frontNode->right] = true; // marking  right visit after process
-                 flag = true;
-            }
-        
-            // for parent processing
-            
-            if(parentToNode[frontNode] && !visited[parentToNode[frontNode]])
-            {
-                q.push(parentToNode[frontNode]);
-                visited[parentToNode[frontNode]] = true; // marking parent as visited
-                
-                flag = true;
-            }
-            
-            
-         }
-         
-         if(flag)
-            ans ++;
-         
-     }
-     return ans;
-     
-  }
-  
-  
-  
     int minTime(Node* root, int target) 
     {
         // Your code goes here
-        map<Node*,Node*>parentToNode;
-        Node* targetNode = parentMapping(root,target,parentToNode);
-        
-        int ans = 0;
-        
-         ans = burningTree(targetNode,parentToNode,ans);
-         return ans;
-        
-        
+         // create parrent to node mapping
+        unordered_map<Node*,Node*>parentToNode; // for keep trace  to all three side
+
+        // step:1 create parent --> node mapping  &&  finding the target node
+        Node* targetNode = createMapping(parentToNode,root,target);
+
+        // step 2: traverse BFS from the start node and burn tree left,right,parent at a single time
+        unordered_map<Node*,bool>visited;
+        queue<Node*>q;
+        q.push(targetNode);
+        visited[targetNode] = true;
+        int time = 0 ;
+
+        while(!q.empty())
+        {
+            bool flag = false; // checker that after one full iretation(left,right,parent), insertion of queue or not
+
+            int size = q.size();
+
+            for(int i=0;i<size;i++)
+            {
+                Node* frontNode = q.front();
+                q.pop();
+
+                // treverse 3 direction if posible LEFT,RIGHT,PARENT
+                if(frontNode->left && !visited[frontNode->left])
+                {
+                    visited[frontNode->left] = true;
+                    q.push(frontNode->left);
+                    flag = true;
+
+                }
+                if(frontNode->right && !visited[frontNode->right])
+                {
+                    visited[frontNode->right] = true;
+                    q.push(frontNode->right);
+                    flag = true;
+
+                }
+                if(parentToNode[frontNode] && !visited[parentToNode[frontNode]])
+                {
+                    visited[parentToNode[frontNode]] = true;
+                    q.push(parentToNode[frontNode]);
+                    flag = true;
+                }
+
+            }
+            if(flag == true)
+            {
+                time++;
+            }
+           
+        }
+        return time;
+
     }
 };
 
