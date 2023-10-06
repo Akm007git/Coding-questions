@@ -39,56 +39,59 @@ struct Node
 };
 */
 class Solution{
-    public:
     
-    int findPos(int in[],int n,int element)
+    private:
+    int findPosition(int in[],int elemnt,int n)
     {
         for(int i=0;i<n;i++)
         {
-            if(in[i] == element)
+            if(in[i] == elemnt)
             {
-                in[i] = INT_MAX;
+                in[i] = INT_MAX; // if there  duplicate elemnt, no issue 
                 return i;
             }
         }
     }
     
     
-    
-    
-    Node* constructingTree(int pre[],int &preIndex,int inStartIndex,int inEndIndex,int n,int in[])
+    private:
+    Node* constructionTree(int in[],int pre[],int &preIndex,int inStartIndex,int inEndIndex,int n)
     {
+        // base case, if preindex out of the range
         if(preIndex >= n || inStartIndex > inEndIndex)
+        {
             return NULL;
+        }
         
-        int element = pre[preIndex++];
-        Node* root = new Node(element); // creating node each time with preprder root element;
-        int position = findPos(in,n,element); // got position in inordertree
-        //mp[element] = INT_MAX;
+        int elemnt = pre[preIndex]; // taking the start node from preorder
         
-          root->left = constructingTree(pre,preIndex,inStartIndex,position -1,n,in);
-          root->right = constructingTree(pre,preIndex,position+1,inEndIndex,n,in);
-          return root;
+        Node* root = new Node(elemnt);
+        
+        int position = findPosition(in,elemnt,n); // serching the node in inorder
+        
+        preIndex++; // for inext irretatio
+        
+        // travesal left and right part
+        //note; for left part range will be  0 --------> pos -1;
+        // note: for right part range will be pos+1 -----------> n-1;
+        root->left = constructionTree(in,pre,preIndex,inStartIndex,position-1,n);
+        root->right = constructionTree(in,pre,preIndex,position+1,inEndIndex,n);
+        
+        return root;
+        
+        
         
     }
-    
- 
+    public:
     Node* buildTree(int in[],int pre[], int n)
     {
         // Code here
-          // unordered_map<int,int>mp;
-        //   for(int i = 0;i<n;i++)
-        //   {
-        //       mp[in[i]] = i; // mapping inorder trre node with its index;
-        //   }
-           
-           int preIndex = 0;
-           int inStartIndex = 0;
-           int inEndIndex = n-1;
-           
-          Node* ans = constructingTree(pre,preIndex,inStartIndex,inEndIndex,n,in);
-          return ans;
-           
+        int preInd = 0;
+        int inStartIndex = 0;
+        int inEndIndex = n-1;
+        return constructionTree(in,pre,preInd,inStartIndex,inEndIndex,n);
+   
+        
     }
 };
 
