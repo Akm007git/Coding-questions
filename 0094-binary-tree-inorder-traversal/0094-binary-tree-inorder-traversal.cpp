@@ -10,49 +10,46 @@
  * };
  */
 class Solution {
-
-private:
-
-void  printInorder(TreeNode* root,vector<int>&in)
-{
-    stack<TreeNode*>st;
-   
-    
-    
-    while(1)
-    {
-       
-        if(root != NULL)
-        {
-             st.push(root);
-            root = root->left;
-        }
-        else
-        {
-            if(st.empty())
-            {
-                break;
-            }
-            root = st.top();
-            
-            in.push_back(root->val);
-            st.pop();
-            root = root->right;
-        }
-    }
-   
-
-}
-
-
-
 public:
     vector<int> inorderTraversal(TreeNode* root) {
+        vector<int>ans;
+        if(!root)
+        {
+            return ans;
+        }
+        TreeNode* current = root;
+        while(current != NULL)
+        {
+            if(current->left == NULL)
+            {
+                ans.push_back(current->val);
+                current = current->right;
+            }
+            else
+            {
+                TreeNode* pred = current->left;
+                
+                // go to the extreme right 
+                while(pred->right != NULL && pred->right != current)
+                {
+                    pred = pred->right;
+                }
 
-        vector<int>in;
-         printInorder(root,in);
-         return in;
-        
-        
+                // if temporary already not exists
+                if( pred->right == NULL) // no temporary exists
+                {
+                    pred->right = current;
+                    current = current->left;
+                }
+                else // temp linkn exists
+                {
+                    pred->right = NULL;
+                    ans.push_back(current->val);
+                    current = current->right;
+                }
+
+            }
+        }
+        return ans;
     }
 };
