@@ -10,7 +10,8 @@
  * };
  */
 class Solution {
-public:
+    private:
+    public:
 
 TreeNode* constructTree(vector<int>preorder,int &preIndex,int inStartIndex, int inEndIndex,unordered_map<int,int>&mp,int n)
 {
@@ -23,14 +24,16 @@ TreeNode* constructTree(vector<int>preorder,int &preIndex,int inStartIndex, int 
     TreeNode* root = new TreeNode(element);
     int position = mp[element];
 
-    root->left = constructTree(preorder,preIndex,inStartIndex,position-1,mp,n);
+     root->left = constructTree(preorder,preIndex,inStartIndex,position-1,mp,n);
      root->right = constructTree(preorder,preIndex,position+1,inEndIndex,mp,n);
      return root;
 
 }
 
+public:
     TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
         unordered_map<int,int>mp;
+        
         for(int i=0;i<inorder.size();i++)
         {
             mp[inorder[i]] = i;
@@ -43,5 +46,6 @@ TreeNode* constructTree(vector<int>preorder,int &preIndex,int inStartIndex, int 
         int inEndIndex = inorder.size()-1;
 
         return constructTree(preorder,preIndex,inStartIndex,inEndIndex,mp,n);
+
     }
 };
