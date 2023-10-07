@@ -34,30 +34,52 @@ struct Node {
 
 class Solution
 {
+     private:
+    Node* insertionNode(Node* root,Node* newNode )
+    {
+        if(!root)
+        {
+            return NULL;
+        }
+            // if right position will be the suitable postion
+            if(root->right == NULL && root->data <  newNode->data)
+            {
+                root->right = newNode; // connection
+                newNode->right = NULL;
+           
+            }
+            // if left position will be the suitable position
+            if(root->left == NULL && root->data > newNode->data )
+            {
+                root->left = newNode; // made connection
+                newNode->left = NULL;
+            }
+
+        //traversal
+
+            if(root->data > newNode->data)
+            {
+                root->left = insertionNode(root->left,newNode);
+            }
+            if(root->data < newNode->data)
+            {
+                root->right = insertionNode(root->right,newNode);
+            }
+            return root;
+
+    }
     public:
         Node* insert(Node* node, int data) {
         
             // Your code goes here
-            if(!node)
-            {
-                Node* temp = new Node(data);
-                return temp;
-            }
             
-            if(node->data == data)
-            {
-                return node;
-            }
-            
-            else if(node->data < data)
-            {
-                node->right = insert(node->right,data);
-                
-            }
-            else
-            {
-                node->left = insert(node->left,data);
-            }
+        Node* newNode = new Node(data);
+         if(!node)
+        {
+            return newNode;
+        }
+        newNode = insertionNode(node,newNode);
+        return newNode;
     }
 
 };
