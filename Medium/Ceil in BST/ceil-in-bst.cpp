@@ -99,34 +99,22 @@ int main() {
 // User function Template for C++
 
 // Function to return the ceil of given number in BST.
-
-void printInorder(Node* root, vector<int>&in)
-{
-    if(!root)
-    {
-        return ;
-    }
-    printInorder(root->left,in);
-    in.push_back(root->data);
-    printInorder(root->right,in);
-}
-
 int findCeil(Node* root, int input) {
     if (root == NULL) return -1;
 
     // Your code here
-    vector<int>in;
-    printInorder(root,in);
-    
-    int ans = -1;
-    for(int i=0;i<in.size();i++)
+    int ans = - 1;
+    while(root)
     {
-        if(in[i] >= input)
+        if(root->data < input)
         {
-            ans = in[i];
-            break;
+            root = root->right;
+        }
+        else if(root->data >= input)
+        {
+            ans = root->data; // by this way each time ans will be updated until get null,and we , and we will be able to get the minimun greater node
+            root = root->left;
         }
     }
-    return ans;
-    
+    return ans ;
 }
