@@ -17,18 +17,21 @@ class Solution {
         {
             return NULL;
         }
-       
+            // if right position will be the suitable postion
             if(root->right == NULL && root->val <  newNode->val)
             {
-                root->right = newNode;
+                root->right = newNode; // connection
                 newNode->right = NULL;
            
             }
+            // if left position will be the suitable position
             if(root->left == NULL && root->val > newNode->val )
             {
-                root->left = newNode;
+                root->left = newNode; // made connection
                 newNode->left = NULL;
             }
+
+        //traversal
 
             if(root->val > newNode->val)
             {
