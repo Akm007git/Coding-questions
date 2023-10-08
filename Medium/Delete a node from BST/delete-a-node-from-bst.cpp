@@ -109,66 +109,64 @@ int main() {
 
 
 // Function to delete a node from BST.
-
-Node* findMax(Node* root)
+Node* findMaxx(Node* root)
 {
-    Node* temp = root;
-    while( temp->right != NULL)
+    while(root->right)
     {
-        temp = temp->right;
+        root = root->right;
     }
-    return temp;
+    return root;
 }
 
 
 Node *deleteNode(Node *root, int X) {
     // your code goes here
     if(root == NULL)
-        return root;
-        // if we got the elemnt
-
-    if(root->data == X )
     {
-        // 4 edge case will be apperaed
-         
-         //1. all child is NULL basically leaf node
-         if(root->left == NULL && root->right == NULL )
-         {
-             delete root;
-             return NULL;
-         }
-         
-         //2. only left child no right child
-         if(root->left != NULL && root->right == NULL )
-         {
-             return root->left;
-         }
-         
-         //3. only right child no left
-         if(root->right != NULL && root->left == NULL)
-         {
-             return root->right;
-         }
-         
-         //4. both left and right are available
-         
-         if(root->left != NULL && root->right != NULL)
-         {
-             // finding the max element from left or min element from the right then delete
-             int maxi = findMax(root->left)->data ;// store the maxvalue from the left;
-             root->data = maxi;
-             
-             root->left = deleteNode(root->left,maxi);
-             return root;
-         }
+        return NULL;
     }
-    else if(root->data > X)
+    
+    if(root->data == X)
     {
-       root->left = deleteNode(root->left,X);
+        //  case, if it it is leaf node
+        if(!root->left && !root->right)
+        {
+            delete root;
+            return NULL;
+        }
         
+        //2nd case , if there single child left or child
+        
+        else if(root->left && !root->right)
+        {
+            Node* temp = root->left;
+            delete root;
+            return temp;
+        }
+        else if(root->right && !root->left)
+        {
+            Node* temp = root->right;
+            delete root;
+            return temp;
+        }
+        
+        //3rd  if therse are two child available
+        else
+        {
+            int  maxi = findMaxx(root->left)->data;  // finding max from the left or also we can save mi from th right
+            root->data = maxi;
+            root->left = deleteNode(root->left,maxi);
+            return root;
+            
+        }
+    }
+    
+    else if(root->data < X)
+    {
+        root->right = deleteNode(root->right,X);
     }
     else
     {
-        root->right = deleteNode(root->right,X);
+        root->left = deleteNode(root->left,X);
     }
 }
