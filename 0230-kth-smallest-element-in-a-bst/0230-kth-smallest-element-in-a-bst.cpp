@@ -10,31 +10,24 @@
  * };
  */
 class Solution {
-public:
-
-    void printingKthSmall(TreeNode* root,int &count, int &ans,int k)
-     {
+    private:
+    void printInorder(TreeNode* root,vector<int>&inorder)
+    {
         if(!root)
         {
             return;
         }
 
-        printingKthSmall(root->left,count,ans,k);
-        count += 1;; // while left == null increment ccount;
-        if(count == k)
-        {
-            ans = root->val;
-            return;
-        }
-        printingKthSmall(root->right,count,ans,k);
-      
-
-    } 
+        printInorder(root->left,inorder);
+        inorder.push_back(root->val);
+        printInorder(root->right,inorder);
+    }
+public:
     int kthSmallest(TreeNode* root, int k) {
-        int count = 0;
-        int ans = -1;
+        
+        vector<int>inorder;
+        printInorder(root,inorder);
+        return inorder[k-1];
 
-        printingKthSmall(root,count,ans,k);
-        return ans;
     }
 };
