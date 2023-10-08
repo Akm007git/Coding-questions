@@ -21,35 +21,43 @@ struct Node {
 // } Driver Code Ends
 class Solution
 {
-    public:
-    
-    bool checkingBST(Node* root, int min, int max)
+    private:
+   void  printInorder(Node* root,vector<int>&v)
     {
         if(!root)
-            return true;
+        {
+            return ;
+        }
         
-        if(root->data > min && root->data < max)
-        {
-            bool left =checkingBST(root->left,min,root->data);
-            bool right = checkingBST(root->right,root->data,max);
-            
-            return left&&right;
-        }
-        else
-        {
-            return false;
-        }
+        // trevrsal
+        printInorder(root->left,v);
+        v.push_back(root->data);
+        printInorder(root->right,v);
     }
-    
-    
+    public:
     //Function to check whether a Binary Tree is BST or not.
     bool isBST(Node* root) 
     {
         // Your code here
-        int min = INT_MIN;
-        int max = INT_MAX;
+        if(!root)
+        {
+            return true;
+        }
+        vector<int>v;
         
-        return checkingBST(root,min,max);
+        printInorder(root,v);
+        
+        // check sot or not
+        
+        for(int i=0;i<v.size()-1;i++)
+        {
+            if(v[i] >= v[i+1])
+            {
+                return 0;
+            }
+        }
+        return 1;
+        
     }
 };
 
