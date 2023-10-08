@@ -11,38 +11,35 @@
  */
 class Solution {
     private:
-   void  printInorder(TreeNode* root,vector<int>&v)
+    bool checkings(TreeNode* root,long long int min,long long int max)
     {
         if(!root)
         {
-            return ;
-        }
-        
-        // trevrsal
-        printInorder(root->left,v);
-        v.push_back(root->val);
-        printInorder(root->right,v);
-    }
-
-public:
-    bool isValidBST(TreeNode* root) {
-         if(!root)
-        {
             return true;
         }
-        vector<int>v;
         
-        printInorder(root,v);
-        
-        // check sot or not
-        
-        for(int i=0;i<v.size()-1;i++)
+        if(root->val > min && root->val < max)
         {
-            if(v[i] >= v[i+1])
-            {
-                return 0;
-            }
+            bool left = checkings(root->left,min,root->val);
+            bool right = checkings(root->right,root->val,max);
+            
+            return left && right;
         }
-        return -1;
+        else
+        {
+            return false;
+        }
+    }
+public:
+    bool isValidBST(TreeNode* root) {
+        // Your code here
+        if(!root->left && !root->right)
+        {
+            return 1;
+        }
+        long long int   min = -1000000000000;
+        long long int  max = 1000000000000;
+        
+        return checkings(root,min,max);
     }
 };
