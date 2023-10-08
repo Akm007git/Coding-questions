@@ -22,42 +22,36 @@ struct Node {
 class Solution
 {
     private:
-   void  printInorder(Node* root,vector<int>&v)
+    bool checkings(Node* root,int min, int max)
     {
         if(!root)
         {
-            return ;
+            return true;
         }
         
-        // trevrsal
-        printInorder(root->left,v);
-        v.push_back(root->data);
-        printInorder(root->right,v);
+        if(root->data > min && root->data < max)
+        {
+            bool left = checkings(root->left,min,root->data);
+            bool right = checkings(root->right,root->data,max);
+            
+            return left && right;
+        }
+        else
+        {
+            return false;
+        }
     }
+    
+    
     public:
     //Function to check whether a Binary Tree is BST or not.
     bool isBST(Node* root) 
     {
         // Your code here
-        if(!root)
-        {
-            return true;
-        }
-        vector<int>v;
+        int min = INT_MIN;
+        int max = INT_MAX;
         
-        printInorder(root,v);
-        
-        // check sot or not
-        
-        for(int i=0;i<v.size()-1;i++)
-        {
-            if(v[i] >= v[i+1])
-            {
-                return 0;
-            }
-        }
-        return 1;
-        
+        return checkings(root,min,max);
     }
 };
 
