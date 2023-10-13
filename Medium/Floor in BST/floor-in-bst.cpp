@@ -21,6 +21,8 @@ struct Node {
 class Solution{
 
 public:
+/*-----------ALSO I CAN DO IT BY VECTOR METHOD -------------------------*/ 
+
     int floor(Node* root, int input) {
         // Code here
         if(root == NULL)
@@ -33,7 +35,7 @@ public:
         {
             if(root->data <= input)
             {
-                ans = root->data;
+                ans = root->data; // by this way each time ans will be updated until get null,and we , and we will be able to get the first lower node node
                 root = root->right;
             }
             else if(root->data > input)
