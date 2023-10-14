@@ -38,8 +38,8 @@ class Solution
             else
             {
                 sum -= arr[start];
-                start += 1;
-                //i = start;
+                start ++;
+                
             }
         }
         return {-1};
