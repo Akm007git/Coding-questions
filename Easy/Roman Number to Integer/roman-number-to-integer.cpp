@@ -12,20 +12,25 @@ class Solution {
   public:
     int romanToDecimal(string &str) {
         // code here
-         unordered_map<char,int>mp = {{'I',1},{'V',5},{'X',10},{'L',50},{'C',100},{'D',500},{'M',1000}};
-        int sum = 0;
-          
-          for(int i = 0; i < str.length(); i++){
-          if(mp[str[i]] < mp[str[i+1]]){
-              sum-=mp[str[i]];
-              
-          }
-          else
-                sum+=mp[str[i]];
+         unordered_map<char,int>mp ;
+        mp ={{'I',1},{'V',5},{'X',10},{'L',50},{'C',100},{'D',500},{'M',1000}};
+        int ans=0;
+        for(int i=0;i<str.size();i++)
+        {
+             if(mp[str[i]] < mp[str[i+1]])
+             {
+                 ans += mp[str[i+1]] - mp[str[i]];
+                 i++;
+             }
+             else
+             {
+                 ans += mp[str[i]];
+             }
         }
-        return sum;
+        return ans;
     }
 };
+
 
 //{ Driver Code Starts.
 
