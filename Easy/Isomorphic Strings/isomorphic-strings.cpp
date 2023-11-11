@@ -28,8 +28,8 @@ class Solution
         for(int i=0;i<str1.size();i++)
         {
          
-                mp1[str1[i]] = i+1; // beacuse of 1:1 mapping i+1, if we use i then it will 0 for first test case
-                mp2[str2[i]] = i+1;
+                mp1[str1[i]] = i; // beacuse of 1:1 mapping i+1, if we use i then it will 0 for first test case
+                mp2[str2[i]] = i;
         }
         
  
@@ -41,11 +41,12 @@ class Solution
             }
         }
         
-        return 1;
+        return true;
         
         
     }
 };
+
 
 
 //{ Driver Code Starts.
