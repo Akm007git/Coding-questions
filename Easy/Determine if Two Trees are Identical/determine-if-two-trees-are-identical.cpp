@@ -45,7 +45,7 @@ class Solution
         if(!r1 && !r2 )
             return true;
             
-        if( r1 && !r2)
+        else if( r1 && !r2)
         {
             return false;
         }
@@ -53,8 +53,6 @@ class Solution
         {
             return false;
         }
-        
-       
         
         // traverse left and right
         
@@ -71,6 +69,7 @@ class Solution
             
     }
 };
+
 
 //{ Driver Code Starts.
 
