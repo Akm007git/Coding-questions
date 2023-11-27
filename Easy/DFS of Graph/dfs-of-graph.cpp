@@ -5,37 +5,34 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
     
-    private:
-    void depthFirstSearch(int startNode, vector<int>adj[],vector<int>&ans,vector<bool>&visited)
+  private:
+    void depthSearch(int node,vector<bool>&visited,vector<int>&dfs,vector<int>adj[])
     {
+        visited[node] = 1; // initially marked as one;
+        dfs.push_back(node); // push the eleemnt
         
-        visited[startNode] =  true; // starting node mark true
-        ans.push_back(startNode);
+        // process the other part
         
-        // processsing the other adjucent neighbouring node
-        
-        for(auto it: adj[startNode]) // each adj[startnode is a vector of corrospondinng neighbour node]
+        for(auto it: adj[node])
         {
-            if(visited[it] == false)
+            if(visited[it] == 0)
             {
-                depthFirstSearch(it,adj,ans,visited);
+                depthSearch(it,visited,dfs,adj);
             }
         }
-            
-        
     }
   public:
     // Function to return a list containing the DFS traversal of the graph.
     vector<int> dfsOfGraph(int V, vector<int> adj[]) {
         // Code here
-        vector<bool>visited(V,false); // for tracking , node is visited or not
+        vector<bool>visited(V,0);
         
-        int startElemnt = 0;
-        vector<int>dfs; // for storing the elemnt
-        depthFirstSearch(startElemnt,adj,dfs,visited);
+        vector<int>dfs;
+        
+        int start = 0;
+        
+        depthSearch(start,visited,dfs,adj);
         return dfs;
-        
-        
     }
 };
 
