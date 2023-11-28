@@ -13,72 +13,75 @@ class Solution
         int n = grid.size();
         int m = grid[0].size();
         
-        // creating a 2d visited array
+        // taking same size visited array
         
-       // int visited[n][m] = {0};
+        vector<vector<int>>visited(n,vector<int>(m,0));
         
-        // also  i can srite this 
-        vector<vector<int> >visited(n, vector<int>(m,0));
+        // push all the rotten element in queueu , also keep track of timing
         
-        // pair with postion also timer
+        queue<pair<pair<int,int>,int>>q;
+        int timing = 0;
         
-        queue<pair<pair<int,int>,int > >q;
         
-        for(int i=0;i<n;i++){
-            for(int j=0;j<m;j++){
-                if(grid[i][j] == 2)
-                {
+        for(int i=0;i<n;i++) // traverse  row wise 
+        {
+            for(int j=0;j<m;j++)  // traverse col wise
+            {
+                if(grid[i][j] == 2 && !visited[i][j]){
                     q.push({{i,j},0});
-                    visited[i][j] = 2;
+                    visited[i][j] = 2; // marking the visited array
                 }
-                
+                    
             }
         }
         
-        // inititially q push done
+        // handeling the direction
+       int delRow[] = {0,-1,0,+1};
+        int delCol[] = {-1,0,+1,0};
         
-        int totalTime = 0;
+        // traverse the queueu
         
-        // for traverse all 4th direction
-        int delRow[] = {-1,0,1,0};
-        int delCol[] = {0,1,0,-1};
-        
-        while( !q.empty())
+        while(!q.empty())
         {
             int row = q.front().first.first;
             int col = q.front().first.second;
-            int time  = q.front().second;
+            int curr_time = q.front().second;
+            
             q.pop();
             
-            //store the time each time
-            totalTime = time;
+            // saving the time after onr total iration of all direction
+            timing = curr_time;
             
-            // all neighbour processing  done 
             for(int i = 0;i<4;i++)
             {
-                int newRow = row + delRow[i];
-                int newCol = col + delCol[i];
+                int nR = row + delRow[i];
+                int nC = col + delCol[i];
                 
-                if(newRow >= 0 && newRow <n && newCol >= 0 && newCol<m &&
-                visited[newRow][newCol] == 0  && grid[newRow][newCol] == 1 )
-                {
-                    q.push({{newRow, newCol},time+1});
-                    visited[newRow][newCol] = 2;
-                }
+                if( nR >= 0 && nR < n &&  nC >= 0 && nC < m 
+                    && grid[nR][nC] == 1  && visited[nR][nC] != 2) // if new cell er value 1 hoi, means not rottenn hoi and, non visited hoi
+                    {
+                        
+                        q.push({{nR,nC},curr_time+1}); // time increase , after a full iteration
+                        visited[nR][nC] = 2;
+                    }
+                
             }
-            
-            
         }
         
-        for(int i=0;i<n;i++){
-            for(int j=0;j<m;j++){
-                if(grid[i][j] == 1 && visited[i][j] != 2){
+        // queue traversa done
+        
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<m;j++)
+            {
+                if(grid[i][j] == 1 && visited[i][j] != 2) //means, somewhre not all egg rotten
                     return -1;
-                }
             }
         }
         
-        return totalTime;
+        return timing;
+        
+        
         
     }
 };
