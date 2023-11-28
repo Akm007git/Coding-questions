@@ -3,30 +3,40 @@
 using namespace std;
 
 // } Driver Code Ends
+
 class Solution {
     private:
-    void dfs(int sr,int sc,vector<vector<int>>&ans,int initColor,int newColor,int delRow[],int delCol[],int m,int n)
+    void bfs(int sr,int sc,vector<vector<int>>&ans,int initColor,int newColor,int delRow[],int delCol[],int m,int n)
     {
         
-        ans[sr][sc] =  newColor; // initially update the ans vectorn with newcolor , that is 2
+        queue<pair<int,int>>q;
+        q.push({sr,sc});
         
-        // process the others part
+        ans[sr][sc] = newColor;
         
-        for(int i=0;i<4;i++)
+        while(!q.empty())
         {
-            int newRow = sr + delRow[i]; // update the row and column ,according to 4 direction
-            int newCol = sc +delCol[i];
+            int row = q.front().first;
+            int col = q.front().second;
+            q.pop();
             
-            // recursive call
-            // condition, first of all check in range or not
-            if(newRow >= 0 && newRow < n && newCol >= 0 && newCol < m 
-            && ans[newRow][newCol] == initColor && ans[newRow][newCol]  != newColor)
-            {
-                dfs(newRow,newCol,ans,initColor,newColor,delRow,delCol,m,n);
-            }
+            
+             for(int i=0;i<4;i++)
+             {
+               
+                int newRow = row + delRow[i]; // update the row and column ,according to 4 direction
+                int newCol = col +delCol[i];
+                
+                // recursive call
+                // condition, first of all check in range or not
+                if(newRow >= 0 && newRow < n && newCol >= 0 && newCol < m 
+                && ans[newRow][newCol] == initColor && ans[newRow][newCol]  != newColor)
+                {
+                    ans[newRow][newCol] = newColor;
+                    q.push({newRow,newCol});
+                }
+             }
         }
-        
-        
     }
     
 public:
@@ -42,11 +52,14 @@ public:
         int n = image.size();// row size
         int m = image[0].size();// col size
         
-        dfs( sr,sc,ans,initColor,newColor,delRow,delCol,m,n); // here new color = 2;we have to update all case in 2, if possible
+        bfs( sr,sc,ans,initColor,newColor,delRow,delCol,m,n); // here new color = 2;we have to update all case in 2, if possible
         return ans;
         
     }
 };
+
+
+
 
 //{ Driver Code Starts.
 int main(){
