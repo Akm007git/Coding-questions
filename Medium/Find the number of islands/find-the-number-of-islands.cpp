@@ -4,62 +4,67 @@ using namespace std;
 
 // } Driver Code Ends
 class Solution {
-  public:
-  
-  void solveByDfs(int row, int col , vector<vector<bool>>&visited, vector<vector<char>>grid )
-  {
-        int n =grid.size();
+    private:
+    void bfs(int row,int col,vector<vector<bool>>&visited,vector<vector<char>>&grid)
+    {
+        int n = grid.size();
         int m = grid[0].size();
         
-      visited[row][col] = true;
-      int drow = row;
-      int dcol = col;
-      
-      // traversing all 8 direction
-      for(drow = -1; drow <= 1;drow++)
-      {
-          for( dcol = -1; dcol <= 1;dcol++)
-          {
-              int newRow = row +drow;
-              int newCol = col + dcol;
-              
-              
-              if(newRow >=0 &&  newRow <n  && newCol >= 0 && newCol <m 
-                    && !visited[newRow][newCol] && grid[newRow][newCol] == '1' )
-              {
-                  
-                  solveByDfs(newRow,newCol,visited,grid);
-              }
-          }
-      }
-  }
-  
-  
+        queue<pair<int,int>>q;
+        q.push({row,col}); // initially pysh the appropriate elemnt
+        visited[row][col] = true; //marl them as true;
+        
+        while(!q.empty())
+        {
+            int row = q.front().first;
+            int col = q.front().second;
+            q.pop();
+            
+            // we have to traverse all 8 way to check ythe sland or not
+            for(int delRow = -1;delRow <= 1 ;delRow++) // range will be -1 to 1 
+            {
+                for(int delCol = -1;delCol <= 1;delCol++) // same range
+                {
+                    int newRow = row + delRow;
+                    int newCol = col + delCol;
+                    
+                    // checkng all the combinations
+                    if(newRow >= 0 && newRow < n && newCol >= 0 && newCol < m &&
+                            !visited[newRow][newCol] && grid[newRow][newCol] == '1' )
+                            {
+                                visited[newRow][newCol] = true;
+                                q.push({newRow,newCol});
+                            }
+                }
+            }
+            
+        }
+        
+
+    }
+  public:
     // Function to find the number of islands.
     int numIslands(vector<vector<char>>& grid) {
         // Code here
-        int n =grid.size();
+        int n = grid.size();
         int m = grid[0].size();
+        int count = 0;
+        vector<vector<bool>>visited(n,vector<bool>(m,false));
         
-    vector<vector<bool>>visited(n,vector<bool>(m,false));
-    
-    int iSland = 0;
-    
-    
-        for(int i=0;i<n;i++)
+        // traverse
+        for(int i=0;i<n;i++) // traverse row wise
         {
-            for(int j =0;j<m;j++ )
+            for(int j=0;j<m;j++) // traverse column wise
             {
-                if(!visited[i][j] && grid[i][j] == '1')
+                if(!visited[i][j] && grid[i][j] == '1') // comapreing that cell with '1' charecyer
                 {
-                    solveByDfs(i,j,visited,grid);
-                    iSland++;
+                    bfs(i,j,visited,grid);
+                    count++;
+                    
                 }
             }
         }
-    
-    return iSland++;
-        
+        return count;
     }
 };
 
