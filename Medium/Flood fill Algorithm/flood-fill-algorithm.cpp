@@ -4,54 +4,45 @@ using namespace std;
 
 // } Driver Code Ends
 class Solution {
-    
-    // USING DFS--------------------------
-    
     private:
-    void dfs(int row, int col, int initColor, vector<vector<int> >&ans,int delRow[], int delCol[],int newColor)
+    void dfs(int sr,int sc,vector<vector<int>>&ans,int initColor,int newColor,int delRow[],int delCol[],int m,int n)
     {
-        // initially mark the start position as new color
         
-        ans[row][col] = newColor;
+        ans[sr][sc] =  newColor; // initially update the ans vectorn with newcolor , that is 2
         
-        int m = ans.size(); // row size
-        int n = ans[0].size(); // col size
-        
-        // processing the adjacent nodes
+        // process the others part
         
         for(int i=0;i<4;i++)
         {
-            //updation of row and column
+            int newRow = sr + delRow[i]; // update the row and column ,according to 4 direction
+            int newCol = sc +delCol[i];
             
-            int newRow = row + delRow[i];
-            int newCol = col +  delCol[i];
-            
-            // the main condition for checking the neighbour (4 neighbours)
-            
-            if(newRow >=0 && newRow < m && newCol >= 0 && newCol < n  &&
-            ans[newRow][newCol] == initColor && ans[newRow][newCol] != newColor)
+            // recursive call
+            // condition, first of all check in range or not
+            if(newRow >= 0 && newRow < n && newCol >= 0 && newCol < m 
+            && ans[newRow][newCol] == initColor && ans[newRow][newCol]  != newColor)
             {
-                dfs(newRow,newCol,initColor,ans,delRow,delCol,newColor);
+                dfs(newRow,newCol,ans,initColor,newColor,delRow,delCol,m,n);
             }
         }
         
+        
     }
-    
     
 public:
     vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int newColor) {
         // Code here 
-      
         int initColor = image[sr][sc];
-        vector<vector<int> >ans = image;
         
-        // 4 direction cordinates
+        vector<vector<int>>ans = image;
         
-        int delRow[] = {-1,0,+1,0};
-        int delCol[] = {0,+1,0,-1};
+        int delRow[] = {0,-1,0,+1};
+        int delCol[] = {-1,0,+1,0};
         
+        int n = image.size();// row size
+        int m = image[0].size();// col size
         
-        dfs(sr,sc,initColor,ans,delRow,delCol,newColor);
+        dfs( sr,sc,ans,initColor,newColor,delRow,delCol,m,n); // here new color = 2;we have to update all case in 2, if possible
         return ans;
         
     }
