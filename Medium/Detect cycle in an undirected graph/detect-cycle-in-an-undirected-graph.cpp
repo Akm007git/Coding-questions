@@ -4,48 +4,54 @@ using namespace std;
 
 // } Driver Code Ends
 class Solution {
-    
     private:
-    
-    bool detectCycleBYDFS(int node, int parent, vector<int>adj[], vector<int>&visited)
+    bool bfs(int start, vector<int>adj[], vector<bool>&visited)
     {
-        visited[node] = 1;
         
-        for(auto adjNodes : adj[node]) // heree node is parent, and adjnodes is child
+        visited[start] = true; // initially start marked as true;
+        queue< pair <int,int > >q;
+        
+        q.push(make_pair(start,-1)); // initially parent is passing as -1
+        
+        while(!q.empty())
         {
-            if(!visited[adjNodes])
+            int node = q.front().first;
+            int parent = q.front().second;
+            
+            q.pop();
+            
+            for(auto it: adj[node])
             {
-                if(detectCycleBYDFS(adjNodes,node,adj,visited) == true) // if some wgere in the rocess of recursion we got already visited or true
-                {
+                if(!visited[it]){ // if the adj nodes (it) not visited, pusg in queue, and visit
+                    q.push({it,node}); // that case parent will node, & "it" is adj nodes
+                    visited[it] = true;
+                }
+                else if( it != parent ){ // menas, adj node visited and also not parent, means cycle must
                     return true;
                 }
             }
-            else // it means adjacent node alredy visited
-            {
-                if(adjNodes != parent) // if adjacent  is not the parent node
-                    return true;
-            }
         }
+        // if any case doesnt follow, means,no cycle
         return false;
     }
-    
-    
-    
   public:
     // Function to detect cycle in an undirected graph.
+    
+    // USING BFS----------------
+    
     bool isCycle(int V, vector<int> adj[]) {
         // Code here
-        vector<int>visited(V,0);
-        int start = 0;
-        int parent = -1;
+        vector<bool>visited(V,false);
         
-        // for all components
-        for(int i = 0;i<V;i++)
+        
+        for(int i=0;i<V;i++)
         {
             if(!visited[i])
             {
-                if(detectCycleBYDFS(i, parent,adj,visited))
-                    return true;
+                if(bfs(i,adj,visited)){
+                     return true;
+                }
+                
             }
         }
         return false;
