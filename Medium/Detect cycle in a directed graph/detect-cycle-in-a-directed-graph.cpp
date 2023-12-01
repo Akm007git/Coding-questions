@@ -3,42 +3,40 @@
 using namespace std;
 
 // } Driver Code Ends
+
 class Solution {
-    
     private:
-    bool detectCycle(int start,vector<int>adj[],vector<bool>&visited, vector<bool>&recurStack)
+    bool dfs(int start,vector<bool>&visited,vector<bool>&recurStack,vector<int>adj[])
     {
         visited[start] = true;
         recurStack[start] = true;
         
-        // processing the adjacent nodes
-        
-        for(auto it: adj[start])
+        // travrsing  the adj
+        for(auto it : adj[start])
         {
-            // when the node is note visited
             if(!visited[it])
             {
-                if(detectCycle(it,adj,visited,recurStack) == true) 
+                if(dfs(it,visited,recurStack,adj))
+                {
+                    
                     return true;
+                }
             }
-            // when the node is visited  previously, and also in present in the recursive stack
-            else if(recurStack[it] == true)
-            {
+            else if(recurStack[it] == true){
                 return true;
             }
             
         }
-        // back korar somoi, jodi kono adjacent na thake
+        // if erom case  ase jar kono  adjnode nei
         recurStack[start] = false;
+        
         return false;
+        
     }
-    
-    
   public:
     // Function to detect cycle in a directed graph.
     bool isCyclic(int V, vector<int> adj[]) {
         // code here
-        
         vector<bool>visited(V,false);
         vector<bool>recurStack(V,false);
         
@@ -46,17 +44,16 @@ class Solution {
         {
             if(!visited[i])
             {
-                if(detectCycle(i,adj,visited,recurStack) == true)
+                if(dfs(i,visited,recurStack,adj) == true)
                 {
                     return true;
                 }
             }
         }
-        
-        return false;
-        
+            return false;
     }
 };
+
 
 //{ Driver Code Starts.
 
