@@ -10,7 +10,7 @@ class Solution
     private:
     bool isPrime(int n){
         
-        if(n ==0 || n == 1){
+        if(n ==0 || n == 1){ // kinf of testcase😂
             return false;
         }
         
@@ -43,11 +43,11 @@ class Solution
         }
         else{
             
-            
+            // for the others test cases;
             while(true){
                 
                 sum += 1;
-                if( isPrime(sum) ){
+                if( isPrime(sum) ){ // checking each time that prime or not
                     break;
                 }
             }
