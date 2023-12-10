@@ -7,29 +7,24 @@ using namespace std;
 // } Driver Code Ends
 //User function Template for C++
 
-class Solution{   
+class Solution {
 public:
-    int minimumStep(int n){
-        //complete the function here
+    int minimumStep(int n) {
         int count = 0;
-        
-        while(n != 1)
-        {
-            if(n%3 == 0)
-            {
-                n = n/3;
+        while (n > 1) {
+            if (n % 3 == 0) {
+                n /= 3;
+            } else {
+                n--;
             }
-            else
-            {
-                n = n-1;
-            }
-            
-            // update the ans after if or else condition hit
             count++;
         }
         return count;
     }
 };
+
+
+
 
 //{ Driver Code Starts.
 
