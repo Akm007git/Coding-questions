@@ -3,38 +3,30 @@
 using namespace std;
 
 // } Driver Code Ends
+
 class Solution {
   public:
+  
     int isPerfectNumber(long long N) {
+        
+        //edge case
+          if(N == 1) return 0;
         // code here
-        // edge case
-        if(N == 1) 
-            return 0;
-        
-        
-        long long  sum = 1;
-        long long org = N;
-     
+        long long  sum  = 1; // we will start sum from sum == 1, as we gonna skip the i = 1, iteration, otherwuaw when we add N/i , it will the number itself
         for(int i=2;i<sqrt(N);i++)
         {
             if(N%i == 0)
             {
-                sum = sum + i + N/i; 
-                // add from front side as well as back side
-                // for case 28, when i =2, sum +2 also sum + (28/2)14 = 16
-                // when i = 4, sum += 4,7 , then sum = 16+11 = 27, also previously 1 total 28;
+                sum += i;
+                sum += N/i;
             }
         }
-        if( sum == org)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        //cout<<sum<<" "<<endl;
+        return sum == N ? 1 : 0;
+        
     }
 };
+
 
 //{ Driver Code Starts.
 int main() {
