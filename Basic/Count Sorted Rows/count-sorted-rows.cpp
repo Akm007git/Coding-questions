@@ -14,7 +14,7 @@ class Solution {
     {
         for(int i=0;i<v.size()-1;i++)
         {
-            if(v[i] >= v[i+1])
+            if(v[i] >= v[i+1]) // the equal to part must be delete
             {
                 return 0;
             }
@@ -28,7 +28,7 @@ class Solution {
     {
         for(int i=0;i<v.size()-1;i++)
         {
-            if(v[i] <= v[i+1])
+            if(v[i] <= v[i+1]) // the equal to part myst be omit
             {
                 return 0;
             }
@@ -49,6 +49,12 @@ class Solution {
         }
         return count;
     }
+    
+    /* STL NOT WOEKING DUE TO EQUAL TO PART
+    -------------------------------------------------------------------
+    ------------------------------------------------
+    -----------------------------------------------------
+    ----------------------------------------*/
 };
 
 //{ Driver Code Starts.
