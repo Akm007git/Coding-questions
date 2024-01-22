@@ -9,33 +9,47 @@ class Solution
     public:
     //Function to return list of integers that form the boundary 
     //traversal of the matrix in a clockwise manner.
-    vector<int> boundaryTraversal(vector<vector<int> > mi, int n, int m) 
+    vector<int> boundaryTraversal(vector<vector<int> > matrix, int n, int m) 
     {
         // code here
-         vector<int > ans;
         
-        if(n==1){
+        vector<int>ans;
+        
+        if(m == 1)
+        {
+           for(int i=0;i<n;i++)
+           {
+               ans.push_back(matrix[i][0]);
+           }
+           return ans;
+           
+        }
+        if(n == 1)
+        {
             for(int i=0;i<m;i++)
-            ans.push_back(mi[0][i]);
-            return ans;
+           {
+               ans.push_back(matrix[0][i]);
+           }
+           return ans;
         }
-        if(m==1){
-            for(int i=0;i<n;i++)
-            ans.push_back(mi[i][0]);
-            return ans;
+        for(int i=0;i<m-1;i++) // upper row
+        {
+            ans.push_back(matrix[0][i]);
         }
         
-        for(int i=0;i<m;i++){
-            ans.push_back(mi[0][i]);
+        for(int i=0;i<n-1;i++)
+        {
+            ans.push_back(matrix[i][m-1]); // right col
         }
-        for(int i=1;i<n;i++){
-            ans.push_back(mi[i][m-1]);
+        
+        for(int i=m-1;i>0;i--) // down row
+        {
+            ans.push_back(matrix[n-1][i]);
         }
-        for(int i=m-2;i>=0;i--){
-            ans.push_back(mi[n-1][i]);
-        }
-        for(int i=n-2;i>0;i--){
-            ans.push_back(mi[i][0]);
+        
+        for(int i=n-1;i>0;i--) /// first row
+        {
+            ans.push_back(matrix[i][0]);
         }
         return ans;
     }
