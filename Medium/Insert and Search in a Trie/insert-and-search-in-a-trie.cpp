@@ -56,7 +56,7 @@ class Solution
 {
     public:
         //Function to insert string into TRIE.
-        void insert(struct TrieNode *root, string key)https://media.geeksforgeeks.org/img-practice/fab-icon-new.gif
+        void insert(struct TrieNode *root, string key)
         {
             // code here
              // code here
