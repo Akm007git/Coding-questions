@@ -42,6 +42,7 @@ class Solution
 
 };
 
+
 //{ Driver Code Starts.
 
 // Driver Program to test above functions
@@ -51,10 +52,10 @@ int main()
     cin>>t;
     cin.ignore(INT_MAX, '\n');
     while(t--){
-        string str;
-        getline(cin, str);
+        string s;
+        getline(cin, s);
         Solution obj;
-        if (obj.checkPangram(str) == true)
+        if (obj.checkPangram(s) == true)
             cout<<1<<endl;
         else
             cout<<0<<endl;
