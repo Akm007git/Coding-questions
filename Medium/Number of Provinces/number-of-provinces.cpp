@@ -9,54 +9,49 @@ using namespace std;
 class Solution {
     
     private:
-    
-    void dfs(int start, vector<bool>&visited,vector<int>adjlist[])
+    void dfs(int start,vector<int>adj[],vector<bool>&visited)
     {
+        visited[start] = true ;
         
-        visited[start] = true;
+        // processing other nodes'
         
-        for(auto it: adjlist[start])
+        for(auto it:adj[start])
         {
             if(!visited[it])
             {
-                dfs(it,visited,adjlist);
+                dfs(it,adj,visited);
             }
         }
     }
-    
-    
-    
   public:
     int numProvinces(vector<vector<int>> adj, int V) {
         // code here
-        
-        // creating adjacency list from matrix
         vector<int>adjlist[V];
         
-        for(int i=0;i<V;i++)
+        // matrix to listv conv
+        for(int i = 0;i<V;i++)
         {
             for(int j=0;j<V;j++)
             {
-                if(adj[i][j] == 1 && i != j )
+                if(adj[i][j] == 1 && i != j)
                 {
                     adjlist[i].push_back(j);
                     adjlist[j].push_back(i);
+                    
                 }
             }
         }
         
-        // using adjacency list
-        
-        int count = 0;
         vector<bool>visited(V,false);
         
-        for(int i = 0;i<V;i++)
+        int count  = 0;
+        
+        for(int i=0;i<V;i++)
         {
-            if(visited[i] == false)
+            if(!visited[i])
             {
+                dfs(i,adjlist,visited);
                 count++;
-                dfs(i,visited,adjlist);
-                
             }
         }
         return count;
