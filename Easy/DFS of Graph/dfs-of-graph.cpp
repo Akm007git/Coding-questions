@@ -4,36 +4,34 @@ using namespace std;
 
 // } Driver Code Ends
 class Solution {
+    
     private:
-    void dfs(vector<int>&ans,vector<bool>&visited,int start,vector<int>adj[])
+    void dfs(int start,vector<int>adj[],vector<bool>&visited,vector<int>&ans)
     {
-        // initially usfh the fairst one and mark as true;
+        // mark as true the first element
         visited[start] = true;
         ans.push_back(start);
         
-        // traverse thye other adj nodes
+        // traversing the adjacent elemt
+        
         for(auto it:adj[start])
         {
             if(!visited[it])
             {
-             dfs(ans,visited,it,adj);
-                
+                dfs(it,adj,visited,ans);
             }
         }
     }
-    
-    
   public:
     // Function to return a list containing the DFS traversal of the graph.
     vector<int> dfsOfGraph(int V, vector<int> adj[]) {
         // Code here
+        int start = 0;
         vector<bool>visited(V,false);
         vector<int>ans;
-        int start = 0;
         
-        dfs(ans,visited,start,adj);
+        dfs(start,adj,visited,ans);
         return ans;
-        
     }
 };
 
