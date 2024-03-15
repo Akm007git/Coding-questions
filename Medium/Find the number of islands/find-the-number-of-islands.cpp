@@ -5,65 +5,66 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
     private:
-    void bfs(int row,int col,vector<vector<bool>>&visited,vector<vector<char>>&grid)
+    void bfs(int row,int col,vector<vector<bool>>&visited,vector<vector<char>>&grid ,int m, int n)
     {
-        int n = grid.size();
-        int m = grid[0].size();
-        
         queue<pair<int,int>>q;
-        q.push({row,col}); // initially pysh the appropriate elemnt
-        visited[row][col] = true; //marl them as true;
-        
-        while(!q.empty())
-        {
-            int row = q.front().first;
-            int col = q.front().second;
-            q.pop();
-            
-            // we have to traverse all 8 way to check ythe sland or not
-            for(int delRow = -1;delRow <= 1 ;delRow++) // range will be -1 to 1 
-            {
-                for(int delCol = -1;delCol <= 1;delCol++) // same range
-                {
-                    int newRow = row + delRow;
-                    int newCol = col + delCol;
-                    
-                    // checkng all the combinations
-                    if(newRow >= 0 && newRow < n && newCol >= 0 && newCol < m &&
-                            !visited[newRow][newCol] && grid[newRow][newCol] == '1' )
-                            {
-                                visited[newRow][newCol] = true;
-                                q.push({newRow,newCol});
-                            }
-                }
-            }
-            
-        }
-        
-
+        q.push({row,col});
+         visited[row][col] = true;
+         
+         while(!q.empty())
+         {
+             int row = q.front().first;
+             int col = q.front().second;
+             q.pop();
+             
+             // traversing adjacnt node
+             
+                 // i have to chck all the 8 sides
+                 for(int i=-1;i<=1;i++)
+                 {
+                     for(int j=-1;j<=1;j++)
+                     {
+                         int newRow = row + i;
+                         int newCol = col + j;
+                         
+                         // chclking these condition
+                         
+                         if(newRow >=0 && newRow < m && newCol >= 0 && newCol < n 
+                         && visited[newRow][newCol] == false && grid[newRow][newCol] == '1')
+                         {
+                             visited[newRow][newCol] = true;
+                             q.push({newRow,newCol});
+                         }
+                         
+                     }
+                 }
+         }
     }
+
   public:
     // Function to find the number of islands.
     int numIslands(vector<vector<char>>& grid) {
         // Code here
-        int n = grid.size();
-        int m = grid[0].size();
-        int count = 0;
-        vector<vector<bool>>visited(n,vector<bool>(m,false));
+        int m = grid.size(); //row
+        int n  = grid[0].size(); // col
         
-        // traverse
-        for(int i=0;i<n;i++) // traverse row wise
+        //
+        vector<vector<bool>>visited(m,vector<bool>(n,false));
+        
+        int count = 0;
+        
+        for(int i=0;i<m;i++)
         {
-            for(int j=0;j<m;j++) // traverse column wise
+            for(int j=0;j<n;j++)
             {
-                if(!visited[i][j] && grid[i][j] == '1') // comapreing that cell with '1' charecyer
+                if(grid[i][j] == '1' && !visited[i][j])
                 {
-                    bfs(i,j,visited,grid);
+                    bfs(i,j,visited,grid,m,n);
                     count++;
-                    
                 }
             }
         }
+        
         return count;
     }
 };
