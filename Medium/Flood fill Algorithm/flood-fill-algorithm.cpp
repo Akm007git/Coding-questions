@@ -3,16 +3,21 @@
 using namespace std;
 
 // } Driver Code Ends
-
 class Solution {
     private:
-    void bfs(int sr,int sc,vector<vector<int>>&ans,int initColor,int newColor,int delRow[],int delCol[],int m,int n)
+    
+    void bfs(int row,int col,int initColor,vector<vector<int>>&adj,int m,int n,int newColor)
     {
+        // mark true first position
         
         queue<pair<int,int>>q;
-        q.push({sr,sc});
+        q.push({row,col});
         
-        ans[sr][sc] = newColor;
+        adj[row][col] = newColor; //2  initially mark with new color
+        
+        //we need to traverse 4 directions, lets get a map the whole dirctions  
+        int delRow[] = {-1,0,+1,0};
+        int delCol[] = {0,+1,0,-1};
         
         while(!q.empty())
         {
@@ -20,46 +25,37 @@ class Solution {
             int col = q.front().second;
             q.pop();
             
-            
-             for(int i=0;i<4;i++)
-             {
-               
-                int newRow = row + delRow[i]; // update the row and column ,according to 4 direction
-                int newCol = col +delCol[i];
+            // traversing 4 sidew
+            for(int i=0;i<4;i++)
+            {
+                int newRow = row + delRow[i];
+                int newCol =  col + delCol[i];
                 
-                // recursive call
-                // condition, first of all check in range or not
-                if(newRow >= 0 && newRow < n && newCol >= 0 && newCol < m 
-                && ans[newRow][newCol] == initColor && ans[newRow][newCol]  != newColor)
+                if(newRow >= 0 && newRow < m && newCol >= 0 && newCol < n && 
+                adj[newRow][newCol] == initColor && adj[newRow][newCol] !=  newColor)
                 {
-                    ans[newRow][newCol] = newColor;
                     q.push({newRow,newCol});
+                    adj[newRow][newCol] = newColor;
                 }
-             }
+            }
         }
+        
     }
-    
-public:
+public: 
     vector<vector<int>> floodFill(vector<vector<int>>& image, int sr, int sc, int newColor) {
         // Code here 
-        int initColor = image[sr][sc];
         
-        vector<vector<int>>ans = image;
+        int m = image.size();
+        int n = image[0].size();
+         int initColor = image[sr][sc];
         
-        int delRow[] = {0,-1,0,+1};
-        int delCol[] = {-1,0,+1,0};
+        vector<vector<int>>adj = image;
         
-        int n = image.size();// row size
-        int m = image[0].size();// col size
         
-        bfs( sr,sc,ans,initColor,newColor,delRow,delCol,m,n); // here new color = 2;we have to update all case in 2, if possible
-        return ans;
-        
+        bfs(sr,sc,initColor,adj,m,n,newColor);
+        return adj;
     }
 };
-
-
-
 
 //{ Driver Code Starts.
 int main(){
