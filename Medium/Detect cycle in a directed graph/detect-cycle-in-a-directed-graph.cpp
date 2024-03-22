@@ -3,35 +3,33 @@
 using namespace std;
 
 // } Driver Code Ends
-
 class Solution {
     private:
-    bool dfs(int start,vector<bool>&visited,vector<bool>&recurStack,vector<int>adj[])
+    bool dfs(int start,vector<int>adj[],vector<bool>&visited,vector<bool>&recurStack)
     {
         visited[start] = true;
         recurStack[start] = true;
         
-        // travrsing  the adj
-        for(auto it : adj[start])
+        
+        // traverse all the pthers nodes
+        for(auto it:adj[start])
         {
             if(!visited[it])
             {
-                if(dfs(it,visited,recurStack,adj))
+                if(dfs(it,adj,visited,recurStack) ==  true)
                 {
-                    
                     return true;
                 }
+                
             }
-            else if(recurStack[it] == true){
-                return true;
-            }
-            
+            else if(recurStack[it] == true)
+            {
+                    return true;
+              }
         }
-        // if erom case  ase jar kono  adjnode nei
+        
         recurStack[start] = false;
-        
         return false;
-        
     }
   public:
     // Function to detect cycle in a directed graph.
@@ -40,20 +38,19 @@ class Solution {
         vector<bool>visited(V,false);
         vector<bool>recurStack(V,false);
         
-        for(int i=0;i<V;i++)
+        for(int i = 0;i<V;i++)
         {
             if(!visited[i])
             {
-                if(dfs(i,visited,recurStack,adj) == true)
+                if(dfs(i,adj,visited,recurStack))
                 {
                     return true;
                 }
             }
         }
-            return false;
+        return false;
     }
 };
-
 
 //{ Driver Code Starts.
 
