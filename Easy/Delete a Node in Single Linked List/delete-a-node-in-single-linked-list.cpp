@@ -70,6 +70,8 @@ int main()
 // } Driver Code Ends
 
 
+
+
 /* Link list Node 
 struct Node
 {
@@ -87,32 +89,25 @@ struct Node
 Node* deleteNode(Node *head,int x)
 {
     //Your code here
-    if(x ==1)
+    if(x==1)
     {
-        head = head->next;
+        head = head->next;  // head one step ahed
         return head;
     }
     
-    int count = 1;
+    int count=1;
     Node* temp = head;
-    
-     
-    
-    
-    while(count < x-1 && temp != NULL)
+    while( count < x-1)
     {
         temp = temp->next;
         count++;
         
     }
-    
-    //temp->next = temp->next->next;
-     
     Node* next = temp->next->next;
     Node* del = temp->next;
+    
     temp->next = next;
-  
+    del = NULL;
     
     return head;
-    
 }
