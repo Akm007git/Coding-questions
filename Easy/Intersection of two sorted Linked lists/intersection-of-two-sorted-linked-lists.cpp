@@ -63,56 +63,41 @@ struct Node
 
 class Solution
 {
-    private:
-    void insertAtTail(Node* &head,Node* &tail, int data)
-    {
-        Node* temp = new Node(data);
-        
-        if(head == NULL)
-        {
-            head = temp;
-            tail = temp;
-        }
-        else
-        {
-            tail->next = temp;
-            tail = temp;
-        }
-    }
-    
     public:
     Node* findIntersection(Node* head1, Node* head2)
     {
         // code goes here.
-        Node* temp1 = head1;
+        Node* dummy = new Node(-1);
+        Node* dummyTemp = dummy;
+        Node* temp = head1;
         Node* temp2 = head2;
         
-        Node* dummyHead = NULL;
-        Node* dummyTail = NULL;
-        
-        while(temp1 != NULL && temp2 != NULL)
+        while(temp && temp2)
         {
-            if(temp1->data < temp2->data)
+            if(temp->data < temp2->data)
             {
-                temp1 = temp1->next;
-                
+                temp = temp->next;
             }
-            else if(temp2->data < temp1->data)
+            else if(temp->data > temp2->data)
             {
                 temp2 = temp2->next;
             }
             else
             {
-                insertAtTail(dummyHead,dummyTail,temp1->data);
+               
+               Node* current = new Node(temp->data); // making node using this data
+               dummyTemp->next =current; // connecting nodes dummy---current
+               dummyTemp = dummyTemp->next;  // updating dummy one step
                 
-                //updation
-                  temp1 = temp1->next;
-                  temp2 = temp2->next;
-                
+                //updation of main poointer
+                temp = temp->next;
+                temp2 = temp2->next;
             }
         }
+          dummy = dummy->next; // as -1 is dummy after that all the data is connected
         
-        return dummyHead;
+        return  dummy;
+        
     }
 };
 
