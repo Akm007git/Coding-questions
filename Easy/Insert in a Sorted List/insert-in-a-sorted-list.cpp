@@ -40,30 +40,37 @@ struct Node
 };
 */
 
-class Solution{
-  public:
-    // Should return head of the modified linked list
-    Node *sortedInsert(struct Node* head, int data) {
-        // Code here
-        if(!head) {
-            Node* newNode = new Node (data);
-            head=newNode;
-            return head;
+class Solution {
+public:
+    Node* sortedInsert(Node* head, int data) {
+        Node* newNode = new Node(data);
+        
+        // If list is empty or new node should be inserted at the beginning
+        if (head == NULL || data < head->data) {
+            newNode->next = head;
+            return newNode; // new node becomes the new head
         }
-        else if(head->data >= data){
-            int temp=head->data;
-            Node* newNode = new Node (temp);
-            newNode->next=head->next;
-            head->data = data;
-            head->next=newNode;
-            return head;
+        
+        Node* previous = head;
+        Node* current = head->next;
+        
+        while (current != NULL) {
+            if (data <= current->data) {
+                previous->next = newNode;
+                newNode->next = current;
+                return head; // insertion completed, return the original head
+            }
+            
+            previous = current;
+            current = current->next;
         }
-        else {
-            head->next=sortedInsert(head->next,data);
-            return head;
-        }
+        
+        // If data is larger than all existing elements, insert at the end
+        previous->next = newNode;
+        return head;
     }
 };
+
 
 
 //{ Driver Code Starts.
