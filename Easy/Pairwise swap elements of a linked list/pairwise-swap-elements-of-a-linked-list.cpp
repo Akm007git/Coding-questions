@@ -38,22 +38,39 @@ class Solution
     Node* pairWiseSwap(struct Node* head) 
     {
         // The task is to complete this method
-        Node *ans=new Node(0);
-        Node *temp=ans;
-        while(head && head->next)
+        if(!head || !head->next)
         {
-            Node *t=head->next->next;
-            ans->next=head->next;
-            ans=ans->next;
-            ans->next=head;
-            ans=ans->next;
-            head=t;
+            return head;
         }
-        if(head)
-            ans->next=head;
-        else    
-            ans->next=NULL;
-        return temp->next;
+        
+    Node* previous = NULL;
+    Node* current = head;
+    Node* forward = NULL;
+    int count = 0;
+    
+    // logic of reversing paIRWISE
+    while(current != NULL && count < 2)
+    {
+        forward = current->next;
+        current->next  = previous;
+        
+        
+        //updation
+        previous = current;
+        current = forward;
+        count++;
+    }
+    
+    // using recursuon i have to process for rest elemnt
+    
+    if(forward)
+    {
+        head->next = pairWiseSwap(forward); //this forward  will act as  HEAD forr next iteation
+    }
+    
+    return previous;
+    
+    
     }
 };
 
