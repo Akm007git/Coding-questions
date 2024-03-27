@@ -104,20 +104,23 @@ class Solution
     Node* reverseDLL(Node * head)
     {
         //Your code here
+        if(!head || !head->next) return head;
+        
         Node* previous = NULL;
         Node* current = head;
         
         while(current != NULL)
         {
             Node* forward = current->next;
-            current->next = previous;
+            current->next  = previous;
             current->prev = forward;
             
             // updation
             previous = current;
-            current = forward;
-            
+            current  = forward;
         }
+        
+        
         return previous;
     }
 };
