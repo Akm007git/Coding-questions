@@ -52,20 +52,36 @@ class Solution{
     // your task is to complete this function
     int countPairs(struct Node* head1, struct Node* head2, int x) {
         // Code here
-         unordered_map<int,int>mp;
-        Node* ptr1=head1;
-        Node* ptr2=head2;
-        while(ptr1){
-            mp[ptr1->data]++;
-            ptr1=ptr1->next;
+        unordered_map<int,int>mp;
+        
+        Node* temp1 = head1;
+        Node* temp2 = head2;
+        
+        // mapping the first head data
+        
+        while(temp1)
+        {
+            mp[temp1->data]++; // mapping the first list ,then compare with second list
+            temp1 = temp1->next;
         }
-        int cnt=0;
-        while(ptr2){
-            if(mp.find(x-ptr2->data)!=mp.end())
-            cnt++;
-            ptr2=ptr2->next;
+        
+        // mapping done now just logic
+        int count  = 0;
+        while(temp2)
+        {
+            //int diff = x-temp2->data ; // if a+ b = x; then b = sum - a;
+            
+            if(mp.find(x-temp2->data) != mp.end()) // checking that it is avilable or not in the amp
+            {
+                count++;
+            }
+            
+            temp2 = temp2->next;
+           
         }
-        return cnt;
+        
+        
+        return count;
     }
 };
 
