@@ -12,7 +12,7 @@ class Solution {
         //edge case
           if(N == 1) return 0;
         // code here
-        long long  sum  = 1; // we will start sum from sum == 1, as we gonna skip the i = 1, iteration, otherwuaw when we add N/i , it will the number itself
+        long  sum  = 1; // we will start sum from sum == 1, as we gonna skip the i = 1, iteration, otherwuaw when we add N/i , it will the number itself
         for(int i=2;i<sqrt(N);i++)
         {
             if(N%i == 0)
@@ -26,6 +26,7 @@ class Solution {
         
     }
 };
+
 
 
 //{ Driver Code Starts.
