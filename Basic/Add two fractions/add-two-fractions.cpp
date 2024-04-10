@@ -21,43 +21,26 @@ int main()
 
 // } Driver Code Ends
 
+
 /*You are required to complete this function*/
-int findGcd(int a, int b)
+void findLoweset(int &n, int &d)
 {
-    //base case
-    if(b == 0)
-        return a;
-    return findGcd(b,a%b);
-    
+    int gcd2 = __gcd(n,d);
+    n = n/gcd2;
+    d = d/gcd2;
+    cout<<n<<"/"<<d<<endl;
 }
-
-void findLowest(int &a,int &b)
-{
-    int gcdOfAns = findGcd(a,b);
-    
-    a = a/gcdOfAns;
-    b = b/gcdOfAns;
-    
-   cout<<a<<"/"<<b<<endl;
-    
-}
-
-
 void addFraction(int num1, int den1, int num2,int den2)
 {
-    //Your code here
-    int gcd = findGcd(den1,den2);
-    int lcm = (den1*den2)/gcd;
-    
-    int numeretor =  (num1)*(lcm/den1) + (num2)*(lcm/den2);
-    int denominator = lcm;
-    
-    // int lowest = findLowest(numeretor,denominator);
-    // cout<<lowest<<endl;
-    
-   findLowest(numeretor,denominator);
-
+//Your code here
+    int gcd = __gcd(den1,den2); // but we need lcm
+    //cout<<gcd<<endl;
+    int  lcm  = (den1*den2)/gcd;
+    //cout<<lcm<<endl;
     
     
-
+    int numeretor = (lcm/den1)*num1 + (lcm/den2)*num2;
+    int denometor = lcm;
+    
+    return findLoweset(numeretor,denometor);
  }
