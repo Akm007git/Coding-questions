@@ -6,31 +6,31 @@ using namespace std;
 // } Driver Code Ends
 // User function Template for C++
 class Solution {
-    
-
-  public:
-  
-    int nthFibonacci(int n){
-        // code here
-        int mod = 1e9+7;
-        int prev1 = 1;
-        int prev2 = 0;
-        
-        for(int i=2;i<=n;i++)
+    int mod = 1e9+7;
+    private:
+    int fibbo(int n, vector<int>&dp)
+    {
+        if(n <= 1)
         {
-            int current = (prev1%mod + prev2%mod)%mod;
-              prev2 = prev1;
-              prev1 = current;
-            
+            return n;
+        }
+        if(dp[n] != -1)
+        {
+            return dp[n];
         }
         
-        return prev1;
+         dp[n] = ( fibbo(n-1,dp)%mod + fibbo(n-2,dp)%mod )%mod;
+         return dp[n];
+    }
+  public:
+    int nthFibonacci(int n){
+        // code 
         
+        vector<int>dp(n+1,-1);
+        
+        return fibbo(n,dp);
     }
 };
-
-/* SPACE OPTIMAIZATION------------------------------------*/
-
 
 //{ Driver Code Starts.
 int main() {
