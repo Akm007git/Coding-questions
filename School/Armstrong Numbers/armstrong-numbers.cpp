@@ -7,43 +7,43 @@ using namespace std;
 // User function Template for C++
 class Solution {
     private:
-    
-    int findDigit(int n){
-        int count = 0;
-       
-        
-        while( n != 0)
+    int findCount(int n)
+    {
+        int count  = 0;
+        while(n)
         {
             int remd = n%10;
             count++;
-            n /= 10;
+            n = n/10;
         }
+        
         return count;
     }
     
-        int solve(int n,int count)
+    bool isAmstrong(int n, int count)
+    {
+        int org = n;
+        int sum  = 0;
+        while(n)
         {
-            int sum = 0;
-            while(n != 0)
-            {
-                int remd = n%10;
-                sum += pow(remd,count);
-                n /= 10;
-            }
+            int remd  = n%10;
+            sum  += pow(remd,count);  //1^3 + 5^3 + 3^3;
             
-            return sum;
+            n = n/10;
+            
         }
+        
+        if(sum == org) return true;
+        else return false;
+    }
   public:
     string armstrongNumber(int n){
         // code here
-        int count = findDigit(n);
-        //cout<<count<<" ";
+        int count  = findCount(n);
+        bool ans  = isAmstrong(n,count);
         
-        int ams = solve(n,count);
-        //cout<<ams;
-        
-         return ams == n ? "Yes" : "No";
-        
+        if(ans) return "Yes";
+        else return "No";
     }
 };
 
