@@ -20,22 +20,22 @@ int main() {
 /*you are required to complete this method*/
 int convertFive(int n) {
     // Your code here
-    int sum = 1;
-    int newNum = 0;
+    int newnum = 0;
+    int sum = 1; // this is thr parameter , ive tonincese each time
     
     while(n != 0)
     {
         int remd = n%10;
-        if(remd == 0)
+        
+        if(remd  == 0)
         {
-            remd = 5;
+            remd  = 5;
         }
         
-        newNum += remd*sum; // again re constructing the number
-        sum = sum*10; //  update the sum each time  *10
+        newnum  += remd*sum;
+        sum *= 10;
         
-        // update the provided number
-        n /= 10;
+        n = n/10;
     }
-    return newNum;
+    return newnum;
 }
