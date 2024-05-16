@@ -9,20 +9,27 @@ using namespace std;
 //User function Template for C++
 
 class Solution{
-public:
-    stack<int> insertAtBottom(stack<int> st,int x){
-        if(st.size()==0){
-            stack<int> v;
-            v.push(x);
-            return v;
+    private:
+    stack<int> solve(stack<int>&st ,int element)
+    {
+        if(st.empty())
+        {
+            st.push(element);
+            return st;
         }
         
-        int a=st.top();
+        int top  = st.top(); // while each and every elemnt till base case hit
         st.pop();
-        stack<int> ans=insertAtBottom(st,x);
-        ans.push(a);
         
-        return ans;
+        solve(st,element);
+        
+        st.push(top); // while  returning saving the elements
+        return st;
+    }
+public:
+    stack<int> insertAtBottom(stack<int> st,int x){
+        return solve(st,x);
+        
     }
 };
 
