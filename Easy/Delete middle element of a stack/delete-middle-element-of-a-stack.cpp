@@ -9,33 +9,32 @@ using namespace std;
 
 class Solution
 {
-    public:
     
-    void deleteM(stack<int>&st,int count,int n)
+    private:
+    void  solve(stack<int>&st,int count,int n)
     {
-        if(count == n/2)
+        if(count  == n/2) // got the mid element
         {
             st.pop();
             return;
         }
         
-        
-        int num = st.top();
+        // else do these thing
+        int top = st.top();
         st.pop();
         
-        deleteM(st,count+1,n);
-        st.push(num);
-        
-        
+        count += 1;
+        solve(st,count,n);
+        st.push(top); // while returning push the extract value from the stack
     }
+    public:
     //Function to delete middle element of a stack.
     void deleteMid(stack<int>&s, int sizeOfStack)
     {
         // code here.. 
-        int count = 0;
+        int count  = 0;
         int n = sizeOfStack;
-        
-        deleteM(s,count,n);
+        return  solve(s,0,n);
     }
 };
 
